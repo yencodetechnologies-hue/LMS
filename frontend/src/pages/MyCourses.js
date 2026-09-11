@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { API_URL } from '../data/service';
 import '../styles/Mycourse.css';
 import DashboardLayout from '../components/DashboardLayout';
+import { Copy, Check } from 'lucide-react';
 
 export default function MyCourses() {
   const [courses, setCourses] = useState([]);
@@ -11,6 +12,7 @@ export default function MyCourses() {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCourse, setSelectedCourse] = useState(null);
+  const [copiedKey, setCopiedKey] = useState(null);
   const itemsPerPage = 5;
 
   const authHeaders = () => ({
@@ -37,13 +39,13 @@ export default function MyCourses() {
     fetchPurchasedCourses();
   }, []);
 
-  const handleCopyLink = (url) => {
-    if (!url) {
-      alert('No link available');
-      return;
-    }
+  const handleCopyLink = (url, key) => {
+    if (!url) return;
     navigator.clipboard.writeText(url);
-    alert('Link copied to clipboard!');
+    setCopiedKey(key);
+    setTimeout(() => {
+      setCopiedKey((current) => (current === key ? null : current));
+    }, 1500);
   };
 
   const filteredCourses = courses.filter((item) => {
@@ -191,6 +193,15 @@ export default function MyCourses() {
           const knowledgeAssessmentUrl = course.knowledgeAssessmentUrl || knowledgeAssessmentGeneratedUrl;
           const practicalAssessmentUrl = course.practicalAssessmentUrl || practicalAssessmentGeneratedUrl;
 
+          const urlRows = [
+            { key: 'jobPack', label: 'Job Pack Template URL:', url: jobPackUrl },
+            { key: 'knowledgeAnswer', label: 'Knowledge Answer Guide URL:', url: knowledgeAnswerUrl },
+            { key: 'mappingDoc', label: 'Mapping Document URL:', url: mappingDocUrl },
+            { key: 'practicalMarking', label: 'Practical Marking Guide URL:', url: practicalMarkingUrl },
+            { key: 'knowledgeAssessment', label: 'Knowledge Assessment URL:', url: knowledgeAssessmentUrl },
+            { key: 'practicalAssessment', label: 'Practical Assessment URL:', url: practicalAssessmentUrl },
+          ];
+
           return (
             <div className="course-modal-overlay" onClick={() => setSelectedCourse(null)}>
               <div className="course-modal-content" onClick={(e) => e.stopPropagation()}>
@@ -211,54 +222,26 @@ export default function MyCourses() {
 
                   <div className="modal-section">
                     <h3>Template & Resource URLs</h3>
-                    
-                    <div className="url-row">
-                      <span className="url-label">Job Pack Template URL:</span>
-                      <div className="url-input-group">
-                        <input type="text" readOnly value={jobPackUrl} />
-                        <button className="btn-copy" onClick={() => handleCopyLink(jobPackUrl)}>Copy Link</button>
-                      </div>
-                    </div>
 
-                    <div className="url-row">
-                      <span className="url-label">Knowledge Answer Guide URL:</span>
-                      <div className="url-input-group">
-                        <input type="text" readOnly value={knowledgeAnswerUrl} />
-                        <button className="btn-copy" onClick={() => handleCopyLink(knowledgeAnswerUrl)}>Copy Link</button>
+                    {urlRows.map((row) => (
+                      <div className="url-row" key={row.key}>
+                        <span className="url-label">{row.label}</span>
+                        <div className="url-input-group">
+                          <input type="text" readOnly value={row.url} />
+                          <button
+                            className="btn-copy"
+                            onClick={() => handleCopyLink(row.url, row.key)}
+                            title={copiedKey === row.key ? 'Copied' : 'Copy link'}
+                            style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+                          >
+                            {copiedKey === row.key ? <Check size={15} /> : <Copy size={15} />}
+                            <span style={{ fontSize: '0.75rem' }}>
+                              {copiedKey === row.key ? 'Copied' : ''}
+                            </span>
+                          </button>
+                        </div>
                       </div>
-                    </div>
-
-                    <div className="url-row">
-                      <span className="url-label">Mapping Document URL:</span>
-                      <div className="url-input-group">
-                        <input type="text" readOnly value={mappingDocUrl} />
-                        <button className="btn-copy" onClick={() => handleCopyLink(mappingDocUrl)}>Copy Link</button>
-                      </div>
-                    </div>
-
-                    <div className="url-row">
-                      <span className="url-label">Practical Marking Guide URL:</span>
-                      <div className="url-input-group">
-                        <input type="text" readOnly value={practicalMarkingUrl} />
-                        <button className="btn-copy" onClick={() => handleCopyLink(practicalMarkingUrl)}>Copy Link</button>
-                      </div>
-                    </div>
-
-                    <div className="url-row">
-                      <span className="url-label">Knowledge Assessment URL:</span>
-                      <div className="url-input-group">
-                        <input type="text" readOnly value={knowledgeAssessmentUrl} />
-                        <button className="btn-copy" onClick={() => handleCopyLink(knowledgeAssessmentUrl)}>Copy Link</button>
-                      </div>
-                    </div>
-
-                    <div className="url-row">
-                      <span className="url-label">Practical Assessment URL:</span>
-                      <div className="url-input-group">
-                        <input type="text" readOnly value={practicalAssessmentUrl} />
-                        <button className="btn-copy" onClick={() => handleCopyLink(practicalAssessmentUrl)}>Copy Link</button>
-                      </div>
-                    </div>
+                    ))}
                   </div>
                 </div>
 

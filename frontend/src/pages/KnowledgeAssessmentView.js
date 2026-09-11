@@ -369,7 +369,7 @@ export default function KnowledgeAssessmentView() {
   if (submissionStatus === STATUS_SUBMITTED) {
     statusBanner = (
       <div style={{ background: '#fffbeb', border: '1px solid #fde68a', color: '#92400e', padding: '12px 16px', borderRadius: '6px', marginBottom: '20px', fontWeight: '600' }}>
-        ⏳ Submitted: Your assessment has been submitted and is now locked, pending review by your RTO assessor.
+        ⏳Assessment submitted successfully. Please wait for your RTO assessor to review it.
       </div>
     );
   } else if (submissionStatus === STATUS_APPROVED) {
