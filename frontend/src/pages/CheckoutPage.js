@@ -1,16 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { RefreshCw } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { API_URL } from '../data/service';
 import '../styles/CheckoutPage.css';
-
-// Generates a random RTO number like "RTO-48213"
-const generateRtoNumber = () => {
-  const randomDigits = Math.floor(10000 + Math.random() * 90000); // 5-digit number, 10000–99999
-  return `RTO-${randomDigits}`;
-};
 
 export default function CheckoutPage() {
   const navigate = useNavigate();
@@ -18,14 +11,13 @@ export default function CheckoutPage() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    rtoNumber: generateRtoNumber(),
+    rtoNumber: '',
     instituteName: '',
     role: 'rto',
     payStatus: 1, // Default payment status set to 1
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [isRegenerating, setIsRegenerating] = useState(false);
 
   useEffect(() => {
     // Load cart items from localStorage on mount
@@ -35,13 +27,6 @@ export default function CheckoutPage() {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleRegenerateRto = () => {
-    setIsRegenerating(true);
-    setFormData(prev => ({ ...prev, rtoNumber: generateRtoNumber() }));
-    // Brief spin animation for visual feedback, then reset
-    setTimeout(() => setIsRegenerating(false), 400);
   };
 
   const handleSubmit = async (e) => {
@@ -140,24 +125,15 @@ export default function CheckoutPage() {
 
             <div className="checkout-field-group">
               <label className="checkout-label">RTO Number</label>
-              <div className="checkout-rto-row">
-                <input
-                  type="text"
-                  name="rtoNumber"
-                  value={formData.rtoNumber}
-                  readOnly
-                  className="checkout-input checkout-input-readonly"
-                />
-                <button
-                  type="button"
-                  onClick={handleRegenerateRto}
-                  className="checkout-regenerate-btn"
-                  title="Generate a new RTO number"
-                  aria-label="Generate a new RTO number"
-                >
-                  <RefreshCw size={16} className={isRegenerating ? 'checkout-regen-icon-spin' : ''} />
-                </button>
-              </div>
+              <input
+                type="text"
+                name="rtoNumber"
+                value={formData.rtoNumber}
+                onChange={handleChange}
+                required
+                className="checkout-input"
+                placeholder="Enter your RTO number"
+              />
             </div>
 
             <button
