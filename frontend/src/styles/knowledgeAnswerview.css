@@ -1,0 +1,207 @@
+/* src/styles/knowledgeAnswerGuide.css */
+.answer-guide-page-wrapper {
+  background-color: #f1f5f9;
+  min-height: 100vh;
+  padding: 30px 20px;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.answer-guide-action-bar {
+  max-width: 850px;
+  margin: 0 auto 20px auto;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.official-document-sheet {
+  background: #ffffff;
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 50px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  color: #1e293b;
+}
+
+.doc-header-table {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #3a0d24;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.rto-document-logo {
+  max-height: 50px;
+  max-width: 150px;
+  object-fit: contain;
+}
+
+.doc-logo-placeholder {
+  font-size: 12px;
+  font-weight: bold;
+  color: #64748b;
+  border: 1px dashed #cbd5e1;
+  padding: 10px 15px;
+  border-radius: 4px;
+}
+
+.doc-org-cell h2 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+  color: #0f172a;
+  text-transform: uppercase;
+}
+
+.doc-org-cell p {
+  font-size: 13px;
+  color: #64748b;
+  margin: 0;
+}
+
+.doc-title-box h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 6px 0;
+}
+
+.doc-subtitle {
+  font-size: 13px;
+  color: #b8285a;
+  font-weight: 600;
+  margin: 0 0 20px 0;
+}
+
+.doc-meta-grid {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+  font-size: 13px;
+}
+
+.doc-meta-grid td {
+  border: 1px solid #cbd5e1;
+  padding: 8px 12px;
+}
+
+.doc-section-content h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 24px 0 8px 0;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 4px;
+}
+
+.doc-section-content p {
+  font-size: 13.5px;
+  line-align: 1.5;
+  color: #334155;
+  margin: 0 0 10px 0;
+}
+
+.doc-standard-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 15px 0 25px 0;
+  font-size: 13px;
+}
+
+.doc-standard-table th,
+.doc-standard-table td {
+  border: 1px solid #cbd5e1;
+  padding: 10px 12px;
+  text-align: left;
+}
+
+.doc-standard-table th {
+  background-color: #f8fafc;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.btn-primary {
+  background-color: #3b82f6;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #2563eb;
+}
+
+@media print {
+  /* Reset body and hide application sidebar/navbars */
+  body, html {
+    background: #ffffff !important;
+    color: #000000 !important;
+    height: auto !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  /* Hide everything except the document container */
+  body * {
+    visibility: hidden;
+  }
+
+  .ans-guide-sec,
+  .ans-guide-sec .a4-document-sheet,
+  .ans-guide-sec .a4-document-sheet * {
+    visibility: visible;
+  }
+
+  .no-print, 
+  .answer-guide-action-bar {
+    display: none !important;
+    height: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Position document sheet to start cleanly at top-left */
+  .ans-guide-sec {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+  }
+
+  .ans-guide-sec .a4-document-sheet {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 10mm !important;
+    background: #ffffff !important;
+  }
+
+  /* Ensure tables and sections don't cause infinite blank pages */
+  table {
+    page-break-inside: auto !important;
+  }
+  
+  tr, .qa-benchmark-block, .sa-benchmark-card {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  thead {
+    display: table-header-group !important;
+  }
+}

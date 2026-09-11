@@ -1,0 +1,251 @@
+/* =============================================================
+   PRACTICAL ASSESSMENT (AT-ICTBWN307-02) STYLING
+============================================================== */
+
+:root {
+  --pa-maroon-dark: #6d1327;
+  --pa-maroon-table: #86263e;
+  --pa-tint-th: #f6edf0;
+  --pa-border-dark: #000000;
+}
+@media print {
+  body {
+    background: transparent;
+  }
+  .mapping-a4-document {
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+    width: 100% !important;
+  }
+  .map-section {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+  }
+}
+
+@page {
+  size: A4 portrait;
+  margin: 14mm 12mm 16mm 12mm;
+}
+
+.practical-assessment-wrapper * {
+  box-sizing: border-box;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+.practical-assessment-wrapper {
+  width: 100%;
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Calibri, 'Segoe UI', Arial, sans-serif;
+  color: #000000;
+  font-size: 9.5pt;
+  line-height: 1.45;
+}
+
+/* Print Sheet Container */
+.practical-assessment-wrapper .pa-document-sheet {
+  width: 100%;
+  max-width: 840px;
+  background: #ffffff;
+  padding: 3rem 2.8rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Top running header */
+.practical-assessment-wrapper .pa-running-header {
+  font-size: 8.5pt;
+  font-style: italic;
+  color: #7a7278;
+  border-bottom: 1px solid var(--pa-maroon-dark);
+  padding-bottom: 4px;
+  margin-bottom: 1.5rem;
+}
+
+/* Masthead Banner */
+.practical-assessment-wrapper .pa-masthead-banner {
+  display: flex;
+  background-color: var(--pa-maroon-dark) !important;
+  color: #ffffff;
+  border: 1px solid var(--pa-border-dark);
+  margin-bottom: 1.5rem;
+}
+
+.practical-assessment-wrapper .pa-banner-logo {
+  width: 110px;
+  padding: 1.2rem 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 9.5pt;
+  color: #ffffff;
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.05em;
+  flex: 0 0 auto;
+}
+
+.practical-assessment-wrapper .pa-banner-content {
+  padding: 0.8rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+}
+
+.practical-assessment-wrapper .pa-banner-subtitle {
+  font-size: 8.5pt;
+  margin: 0 0 0.2rem 0;
+  color: #fcecef;
+  letter-spacing: 0.02em;
+}
+
+.practical-assessment-wrapper .pa-banner-heading {
+  font-size: 15pt;
+  font-weight: 700;
+  margin: 0;
+  color: #ffffff;
+  letter-spacing: 0.01em;
+}
+
+.practical-assessment-wrapper .pa-unit-title-row {
+  font-size: 11pt;
+  font-weight: 700;
+  color: #000000;
+  margin: 0 0 1.25rem 0;
+}
+
+/* Control & metadata tables */
+.practical-assessment-wrapper .pa-control-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--pa-border-dark);
+  font-size: 9pt;
+  background: #ffffff;
+}
+
+.practical-assessment-wrapper .pa-control-table th, 
+.practical-assessment-wrapper .pa-control-table td {
+  border: 1px solid var(--pa-border-dark);
+  padding: 0.4rem 0.6rem;
+  vertical-align: top;
+}
+
+.practical-assessment-wrapper .pa-control-table th {
+  background-color: var(--pa-tint-th) !important;
+  font-weight: 700;
+  text-align: left;
+}
+
+/* Section styling */
+.practical-assessment-wrapper .pa-section {
+  margin-top: 1.5rem;
+  page-break-inside: avoid;
+}
+
+.practical-assessment-wrapper .pa-sec-title {
+  font-size: 11.5pt;
+  font-weight: 700;
+  color: var(--pa-maroon-dark);
+  margin: 0 0 0.45rem 0;
+}
+
+.practical-assessment-wrapper .pa-sec-content {
+  margin: 0 0 0.6rem 0;
+  color: #1a1a1a;
+  text-align: justify;
+}
+
+.practical-assessment-wrapper .pa-sec-content p {
+  margin: 0 0 0.5rem 0;
+}
+
+.practical-assessment-wrapper .pa-sec-content ul,
+.practical-assessment-wrapper .pa-sec-content ol {
+  margin: 0.3rem 0 0.6rem 1.2rem;
+  padding: 0;
+}
+
+.practical-assessment-wrapper .pa-sec-content li {
+  margin-bottom: 0.3rem;
+}
+
+/* Data Tables with Deep Maroon Headers */
+.practical-assessment-wrapper .pa-grid-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+  border: 1px solid var(--pa-border-dark);
+  font-size: 8.8pt;
+  background: #ffffff;
+}
+
+.practical-assessment-wrapper .pa-grid-table th,
+.practical-assessment-wrapper .pa-grid-table td {
+  border: 1px solid var(--pa-border-dark);
+  padding: 0.4rem 0.55rem;
+  vertical-align: top;
+  text-align: left;
+}
+
+.practical-assessment-wrapper .pa-grid-table thead th {
+  background-color: var(--pa-maroon-table) !important;
+  color: #ffffff !important;
+  font-weight: 700;
+  border: 1px solid var(--pa-border-dark);
+}
+
+.practical-assessment-wrapper .pa-grid-table tbody tr:nth-child(even) td {
+  background-color: #faf7f8 !important;
+}
+
+/* Draft badge */
+.practical-assessment-wrapper .pa-badge-draft {
+  display: inline-block;
+  background-color: #fde8e8 !important;
+  color: #991b1b;
+  padding: 0.15rem 0.45rem;
+  font-size: 8pt;
+  font-weight: 700;
+  border-radius: 3px;
+}
+
+.practical-assessment-wrapper .text-center { text-align: center; }
+.practical-assessment-wrapper .font-bold { font-weight: 700; }
+.practical-assessment-wrapper .page-break-before {
+  page-break-before: always;
+  break-before: page;
+}
+
+/* Print Rules */
+@media print {
+  body {
+    background: #ffffff !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .practical-assessment-wrapper {
+    padding: 0 !important;
+  }
+  .practical-assessment-wrapper .pa-document-sheet {
+    max-width: 100% !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  table {
+    page-break-inside: auto;
+  }
+  tr {
+    page-break-inside: avoid;
+  }
+  thead {
+    display: table-header-group;
+  }
+}

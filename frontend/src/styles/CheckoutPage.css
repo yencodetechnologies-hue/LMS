@@ -1,0 +1,136 @@
+/* src/styles/CheckoutPage.css */
+
+.checkout-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f8fafc;
+  font-family: inherit;
+}
+
+.checkout-main-container {
+  flex: 1;
+  width: 100%;
+  max-width: 600px;
+  margin: 2.5rem auto;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+.checkout-card {
+  background: #ffffff;
+  padding: 2.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e2e8f0;
+}
+
+.checkout-title {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #6d1327;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.checkout-error-banner {
+  background-color: #fef2f2;
+  border: 1px solid #f87171;
+  color: #991b1b;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  margin-bottom: 1.25rem;
+  font-size: 0.9rem;
+}
+
+.checkout-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.checkout-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.checkout-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #1e293b;
+}
+
+.checkout-input,
+.checkout-select {
+  width: 100%;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  color: #0f172a;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.checkout-input:focus,
+.checkout-select:focus {
+  outline: none;
+  border-color: #6d1327;
+  box-shadow: 0 0 0 3px rgba(109, 19, 39, 0.1);
+}
+
+.checkout-select {
+  cursor: pointer;
+}
+
+.checkout-submit-btn {
+  margin-top: 1rem;
+  padding: 0.8rem;
+  background: #6d1327;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.checkout-submit-btn:hover:not(:disabled) {
+  background: #540e1e;
+}
+
+.checkout-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+.checkout-rto-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.checkout-input-readonly {
+  background: #f1f5f9;
+  color: #475569;
+  cursor: not-allowed;
+}
+
+.checkout-regenerate-btn {
+  padding: 10px 14px;
+  background: #fff;
+  color: #6b213a;
+  border: 1px solid #6b213a;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.checkout-regenerate-btn:hover {
+  background: #6b213a;
+  color: #fff;
+}

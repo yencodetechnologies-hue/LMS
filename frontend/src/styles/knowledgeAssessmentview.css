@@ -1,0 +1,241 @@
+/* Student interactive response fields */
+.editable-assessment-view .student-answer-textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #1e293b;
+  font-family: inherit;
+  font-size: 9.5pt;
+  resize: vertical;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.editable-assessment-view .student-answer-textarea:focus {
+  border-color: #b8285a;
+  box-shadow: 0 0 0 3px rgba(184, 40, 90, 0.1);
+}
+
+.editable-assessment-view .table-cell-input {
+  width: 100%;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  padding: 4px 6px;
+  font-size: 8.5pt;
+  background: #ffffff;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.editable-assessment-view .table-cell-input:focus {
+  border-color: #b8285a;
+}
+
+.editable-assessment-view input[type="checkbox"],
+.editable-assessment-view input[type="radio"] {
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+  accent-color: #b8285a;
+}
+.portal-page-wrapper {
+  background-color: #f1f5f9;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.portal-login-card {
+  background: #ffffff;
+  max-width: 500px;
+  margin: 60px auto;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+}
+
+.portal-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 8px 0;
+}
+
+.portal-header p {
+  color: #64748b;
+  font-size: 14px;
+  margin: 0 0 24px 0;
+}
+
+.portal-form .form-group {
+  margin-bottom: 20px;
+}
+
+.portal-form label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+  margin-bottom: 6px;
+}
+
+.portal-form input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.portal-form input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.btn-start-assessment {
+  width: 100%;
+  background-color: #3b82f6;
+  color: #ffffff;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 10px;
+}
+
+.btn-start-assessment:hover {
+  background-color: #2563eb;
+}
+
+/* Website Portal Layout */
+.portal-main-container {
+  max-width: 950px;
+  margin: 0 auto;
+}
+
+.portal-top-bar {
+  background: #ffffff;
+  padding: 16px 24px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+}
+
+.portal-brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.portal-logo {
+  height: 45px;
+  max-width: 120px;
+  object-fit: contain;
+}
+
+.portal-logo-placeholder {
+  font-size: 11px;
+  font-weight: bold;
+  color: #64748b;
+  border: 1px dashed #cbd5e1;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.portal-brand h2 {
+  font-size: 16px;
+  margin: 0;
+  color: #1e293b;
+}
+
+.portal-rto-badge {
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.portal-student-pill {
+  background: #f8fafc;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: #334155;
+}
+
+.btn-switch-user {
+  background: none;
+  border: none;
+  color: #3b82f6;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.portal-content-body {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.assessment-title-banner {
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+}
+
+.assessment-title-banner h1 {
+  font-size: 22px;
+  color: #0f172a;
+  margin: 0 0 6px 0;
+}
+
+.assessment-title-banner p {
+  color: #64748b;
+  font-size: 14px;
+  margin: 0;
+}
+
+.assessment-html-container {
+  color: #334155;
+  line-height: 1.6;
+}
+
+.assessment-footer-actions {
+  margin-top: 40px;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 20px;
+  text-align: right;
+}
+
+.btn-submit-exam {
+  background-color: #10b981;
+  color: #ffffff;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-submit-exam:hover {
+  background-color: #059669;
+}

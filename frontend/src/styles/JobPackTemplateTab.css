@@ -1,0 +1,222 @@
+/* =============================================================
+   JOB PACK TEMPLATE (JP-ICTBWN307-01) STYLING
+============================================================== */
+
+:root {
+  --jp-maroon-dark: #6d1327;
+  --jp-maroon-table: #86263e;
+  --jp-tint-th: #f6edf0;
+  --jp-border-dark: #000000;
+}
+
+@page {
+  size: A4 portrait;
+  margin: 14mm 12mm 16mm 12mm;
+}
+
+.job-pack-wrapper * {
+  box-sizing: border-box;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+.job-pack-wrapper {
+  width: 100%;
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Calibri, 'Segoe UI', Arial, sans-serif;
+  color: #000000;
+  font-size: 9.5pt;
+  line-height: 1.45;
+}
+
+/* Print Sheet Container */
+.job-pack-wrapper .jp-document-sheet {
+  width: 100%;
+  max-width: 840px;
+  background: #ffffff;
+  padding: 3rem 2.8rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Top running header */
+.job-pack-wrapper .jp-running-header {
+  font-size: 8.5pt;
+  font-style: italic;
+  color: #7a7278;
+  border-bottom: 1px solid var(--jp-maroon-dark);
+  padding-bottom: 4px;
+  margin-bottom: 1.5rem;
+}
+
+/* Masthead Banner */
+.job-pack-wrapper .jp-masthead-banner {
+  display: flex;
+  background-color: var(--jp-maroon-dark) !important;
+  color: #ffffff;
+  border: 1px solid var(--jp-border-dark);
+  margin-bottom: 1.5rem;
+}
+
+.job-pack-wrapper .jp-banner-logo {
+  width: 110px;
+  padding: 1.2rem 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 9.5pt;
+  color: #ffffff;
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.05em;
+  flex: 0 0 auto;
+}
+
+.job-pack-wrapper .jp-banner-content {
+  padding: 0.8rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+}
+
+.job-pack-wrapper .jp-banner-subtitle {
+  font-size: 8.5pt;
+  margin: 0 0 0.2rem 0;
+  color: #fcecef;
+  letter-spacing: 0.02em;
+}
+
+.job-pack-wrapper .jp-banner-heading {
+  font-size: 15pt;
+  font-weight: 700;
+  margin: 0;
+  color: #ffffff;
+  letter-spacing: 0.01em;
+}
+
+.job-pack-wrapper .jp-unit-title-row {
+  font-size: 11pt;
+  font-weight: 700;
+  color: #000000;
+  margin: 0 0 1.25rem 0;
+}
+
+/* Control & metadata tables */
+.job-pack-wrapper .jp-control-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--jp-border-dark);
+  font-size: 9pt;
+  background: #ffffff;
+}
+
+.job-pack-wrapper .jp-control-table th, 
+.job-pack-wrapper .jp-control-table td {
+  border: 1px solid var(--jp-border-dark);
+  padding: 0.4rem 0.6rem;
+  vertical-align: top;
+}
+
+.job-pack-wrapper .jp-control-table th {
+  background-color: var(--jp-tint-th) !important;
+  font-weight: 700;
+  text-align: left;
+}
+
+/* Section styling */
+.job-pack-wrapper .jp-section {
+  margin-top: 1.5rem;
+  page-break-inside: avoid;
+}
+
+.job-pack-wrapper .jp-sec-title {
+  font-size: 11.5pt;
+  font-weight: 700;
+  color: var(--jp-maroon-dark);
+  margin: 0 0 0.45rem 0;
+}
+
+.job-pack-wrapper .jp-sec-intro {
+  margin: 0 0 0.6rem 0;
+  color: #1a1a1a;
+  text-align: justify;
+}
+
+/* Data Tables with Deep Maroon Headers */
+.job-pack-wrapper .jp-grid-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+  border: 1px solid var(--jp-border-dark);
+  font-size: 8.8pt;
+  background: #ffffff;
+}
+
+.job-pack-wrapper .jp-grid-table th,
+.job-pack-wrapper .jp-grid-table td {
+  border: 1px solid var(--jp-border-dark);
+  padding: 0.4rem 0.55rem;
+  vertical-align: top;
+  text-align: left;
+}
+
+.job-pack-wrapper .jp-grid-table thead th {
+  background-color: var(--jp-maroon-table) !important;
+  color: #ffffff !important;
+  font-weight: 700;
+  border: 1px solid var(--jp-border-dark);
+}
+
+.job-pack-wrapper .jp-grid-table tbody tr:nth-child(even) td {
+  background-color: #faf7f8 !important;
+}
+
+/* Draft badge */
+.job-pack-wrapper .jp-badge-draft {
+  display: inline-block;
+  background-color: #fde8e8 !important;
+  color: #991b1b;
+  padding: 0.15rem 0.45rem;
+  font-size: 8pt;
+  font-weight: 700;
+  border-radius: 3px;
+}
+
+.job-pack-wrapper .text-center { text-align: center; }
+.job-pack-wrapper .font-bold { font-weight: 700; }
+.job-pack-wrapper .page-break-before {
+  page-break-before: always;
+  break-before: page;
+}
+
+/* Print Rules */
+@media print {
+  body {
+    background: #ffffff !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .job-pack-wrapper {
+    padding: 0 !important;
+  }
+  .job-pack-wrapper .jp-document-sheet {
+    max-width: 100% !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  table {
+    page-break-inside: auto;
+  }
+  tr {
+    page-break-inside: avoid;
+  }
+  thead {
+    display: table-header-group;
+  }
+}

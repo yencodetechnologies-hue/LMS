@@ -1,0 +1,297 @@
+/* =============================================================
+   MAPPING DOCUMENT — ACCURATE WORD/A4 THEME (IMAGE REFERENCE)
+============================================================== */
+
+:root {
+  --map-maroon-dark: #6d1327;    /* Masthead banner background */
+  --map-maroon-table: #86263e;   /* Table header background */
+  --map-tint-th: #f6edf0;        /* Meta/control table header background */
+  --map-border: #000000;         /* Crisp black table borders */
+}
+
+.mapping-a4-document {
+  width: 100%;
+  max-width: 840px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 2.5rem 3rem;
+  color: #000000;
+  font-family: Calibri, 'Segoe UI', Arial, sans-serif;
+  font-size: 9.5pt;
+  line-height: 1.45;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+}
+
+.mapping-a4-document * {
+  box-sizing: border-box;
+}
+
+/* ================= TOP RUNNING HEADER ================= */
+.map-running-header {
+  font-size: 8.5pt;
+  font-style: italic;
+  color: #7a7278;
+  border-bottom: 1px solid #6d1327;
+  padding-bottom: 4px;
+  margin-bottom: 1.5rem;
+}
+
+/* ================= MASTHEAD BANNER ================= */
+.map-masthead-banner {
+  display: flex;
+  background-color: var(--map-maroon-dark) !important;
+  color: #ffffff;
+  border: 1px solid var(--map-border);
+  margin-bottom: 1.75rem;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+.map-banner-logo-box {
+  width: 110px;
+  padding: 1.25rem 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 9.5pt;
+  color: #ffffff;
+  border-right: 1px solid rgba(255, 255, 255, 0.25);
+  letter-spacing: 0.05em;
+  flex: 0 0 auto;
+}
+
+.map-banner-title-box {
+  padding: 0.9rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+}
+
+.map-banner-subtitle {
+  font-size: 8.5pt;
+  margin: 0 0 0.2rem 0;
+  color: #fcecef;
+  letter-spacing: 0.02em;
+}
+
+.map-banner-heading {
+  font-size: 15pt;
+  font-weight: 700;
+  margin: 0;
+  color: #ffffff;
+  letter-spacing: 0.01em;
+}
+
+/* Standalone Unit Title */
+.map-unit-title-row {
+  font-size: 12pt;
+  font-weight: 700;
+  color: #000000;
+  margin: 0 0 1.25rem 0;
+}
+
+/* ================= CONTROL & META TABLE ================= */
+.map-control-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.75rem;
+  border: 1px solid var(--map-border);
+  font-size: 9pt;
+}
+
+.map-control-table th,
+.map-control-table td {
+  border: 1px solid var(--map-border);
+  padding: 0.4rem 0.6rem;
+  vertical-align: middle;
+}
+
+.map-control-table th {
+  background-color: var(--map-tint-th) !important;
+  color: #000000;
+  font-weight: 700;
+  text-align: left;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+.map-control-table td {
+  background-color: #ffffff;
+}
+
+/* ================= SECTION HEADINGS & CONTENT ================= */
+.map-section {
+  margin-top: 1.5rem;
+}
+
+.map-sec-title {
+  font-size: 11pt;
+  font-weight: 700;
+  color: var(--map-maroon-dark);
+  margin: 0 0 0.45rem 0;
+}
+
+.map-sec-intro {
+  margin: 0 0 0.6rem 0;
+  color: #1a1a1a;
+}
+
+.map-element-subheading {
+  font-size: 9.5pt;
+  font-weight: 700;
+  color: #000000;
+  background-color: var(--map-tint-th) !important;
+  border-left: 3.5px solid var(--map-maroon-dark);
+  padding: 0.35rem 0.6rem;
+  margin: 1rem 0 0.45rem 0;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+/* ================= DATA & GRID TABLES ================= */
+.map-grid-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+  border: 1px solid var(--map-border);
+  font-size: 8.8pt;
+  background: #ffffff;
+}
+
+.map-grid-table th,
+.map-grid-table td {
+  border: 1px solid var(--map-border);
+  padding: 0.42rem 0.55rem;
+  vertical-align: top;
+  text-align: left;
+}
+
+/* Table Header in Deep Maroon */
+.map-grid-table thead th {
+  background-color: var(--map-maroon-table) !important;
+  color: #ffffff !important;
+  font-weight: 700;
+  border: 1px solid var(--map-border);
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+.map-grid-table tbody tr:nth-child(even) td {
+  background-color: #faf7f8;
+}
+
+/* Helper Notes & Warnings */
+.map-rto-note {
+  margin-top: 0.3rem;
+  padding-left: 0.5rem;
+  border-left: 2px solid var(--map-maroon-table);
+  font-size: 8pt;
+  color: #444444;
+}
+
+.map-callout-box {
+  background-color: var(--map-tint-th) !important;
+  border: 1px solid #d4bfc6;
+  border-left: 3.5px solid var(--map-maroon-dark);
+  padding: 0.6rem 0.8rem;
+  margin: 0.85rem 0;
+  font-size: 8.8pt;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+.map-warning-box {
+  background-color: #fff9e6 !important;
+  border: 1px solid #e0c885;
+  border-left: 3.5px solid #b45309;
+  padding: 0.6rem 0.8rem;
+  margin: 0.85rem 0;
+  font-size: 8.5pt;
+  color: #78350f;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+.map-badge-draft {
+  display: inline-block;
+  background-color: #fde8e8 !important;
+  color: #991b1b;
+  padding: 0.15rem 0.45rem;
+  font-size: 8pt;
+  font-weight: 700;
+  border-radius: 3px;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+.text-center { text-align: center; }
+.font-bold { font-weight: 700; }
+.text-muted { color: #666666; font-style: italic; }
+
+/* ================= PRINT / A4 RULES ================= */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 14mm 12mm 16mm 12mm;
+  }
+
+  body {
+    background: #ffffff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide navigation controls and outer wrappers on print */
+  .doc-manager-header,
+  .doc-tabs-bar,
+  .sidebar,
+  .dash-header,
+  header:not(.map-masthead-banner) {
+    display: none !important;
+  }
+
+  .mapping-a4-document {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 8.8pt !important;
+  }
+
+  .page-break-before {
+    page-break-before: always;
+    break-before: page;
+  }
+
+  table {
+    page-break-inside: auto;
+  }
+
+  tr {
+    page-break-inside: avoid;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  /* Force background colors on print / PDF generation */
+  .map-masthead-banner {
+    background-color: #6d1327 !important;
+  }
+
+  .map-control-table th {
+    background-color: #f6edf0 !important;
+  }
+
+  .map-grid-table thead th {
+    background-color: #86263e !important;
+    color: #ffffff !important;
+  }
+}

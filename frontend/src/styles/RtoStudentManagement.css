@@ -1,0 +1,380 @@
+/* =============================================================
+   RTO STUDENT MANAGEMENT COMPONENT STYLING
+============================================================== */
+
+.text-center-muted {
+  text-align: center;
+  padding: 2rem;
+  color: #64748b;
+}
+
+.student-modal-box {
+  max-width: 650px !important;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.responses-container {
+  margin-top: 15px;
+}
+
+.responses-list {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.response-card {
+  background: #f8fafc;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  font-size: 0.85rem;
+}
+
+.response-question {
+  margin: 0 0 4px 0;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.response-answer {
+  margin: 2px 0;
+  color: #334155;
+}
+
+.response-verdict {
+  margin: 2px 0;
+  color: #64748b;
+}
+
+.no-responses-msg {
+  color: #64748b;
+  margin: 0;
+}
+/* Empty state cell in the table */
+.rto-empty-cell {
+  text-align: center;
+  padding: 2rem;
+  color: #64748b;
+}
+
+/* ===== Review Modal ===== */
+.rsm-review-modal {
+  max-width: 850px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.rsm-modal-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8fafc;
+}
+
+.rsm-modal-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.rsm-modal-subtitle {
+  margin: 4px 0 0 0;
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.rsm-close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #64748b;
+}
+
+.rsm-modal-body {
+  padding: 20px 24px;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.rsm-meta-bar {
+  background: #f1f5f9;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rsm-section-heading {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #334155;
+  margin: 8px 0 0 0;
+}
+
+.rsm-empty-responses {
+  color: #64748b;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* ===== Question Card ===== */
+.rsm-question-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.rsm-question-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.rsm-question-index {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #6b213a;
+  text-transform: uppercase;
+}
+
+.rsm-verdict-badge {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.rsm-verdict-satisfactory {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.rsm-verdict-pending {
+  background: #fffbeb;
+  color: #b45309;
+}
+
+.rsm-question-text {
+  margin: 0 0 12px 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+/* ===== Answer Grid (Options / Student / Correct) ===== */
+.rsm-answer-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 10px;
+  font-size: 0.85rem;
+}
+
+.rsm-answer-col {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid;
+}
+
+.rsm-col-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.rsm-answer-value {
+  font-weight: 500;
+}
+
+.rsm-options-col {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+.rsm-options-col .rsm-col-label {
+  color: #475569;
+}
+
+.rsm-options-list {
+  color: #334155;
+  max-height: 80px;
+  overflow-y: auto;
+}
+
+.rsm-answer-correct {
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+}
+
+.rsm-answer-correct .rsm-col-label {
+  color: #065f46;
+}
+
+.rsm-answer-correct .rsm-answer-value {
+  color: #064e3b;
+}
+
+.rsm-answer-incorrect {
+  background: #fef2f2;
+  border-color: #fecaca;
+}
+
+.rsm-answer-incorrect .rsm-col-label {
+  color: #991b1b;
+}
+
+.rsm-answer-incorrect .rsm-answer-value {
+  color: #7f1d1d;
+}
+
+.rsm-correct-col {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+.rsm-correct-col .rsm-col-label {
+  color: #166534;
+}
+
+.rsm-correct-col .rsm-answer-value {
+  color: #14532d;
+}
+
+/* ===== Modal Footer ===== */
+.rsm-modal-footer {
+  padding: 16px 24px;
+  border-top: 1px solid #e2e8f0;
+  background: #f8fafc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rsm-footer-note {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.rsm-footer-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* ===== Shared Buttons ===== */
+.rsm-btn {
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+}
+
+.rsm-btn-reattempt {
+  padding: 8px 16px;
+  background: #fff;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+.rsm-btn-approve {
+  padding: 8px 20px;
+  background: #047857;
+  color: #fff;
+}
+
+/* ===== Confirmation Popup ===== */
+.rsm-confirm-overlay {
+  z-index: 60;
+}
+
+.rsm-confirm-modal {
+  max-width: 400px;
+  padding: 24px;
+  text-align: center;
+}
+
+.rsm-confirm-title {
+  margin: 0 0 8px 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.rsm-confirm-message {
+  margin: 0 0 20px 0;
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.rsm-confirm-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.rsm-btn-cancel {
+  padding: 8px 18px;
+  background: #fff;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+}
+
+.rsm-btn-confirm-approve {
+  padding: 8px 18px;
+  background: #047857;
+  color: #fff;
+}
+
+.rsm-btn-confirm-reattempt {
+  padding: 8px 18px;
+  background: #b91c1c;
+  color: #fff;
+}
+/* ===== Error Alert Popup (always renders above confirm popup) ===== */
+.rsm-alert-overlay {
+  z-index: 100;
+}
+
+.rsm-alert-modal {
+  max-width: 380px;
+  padding: 24px;
+  text-align: center;
+}
+
+.rsm-alert-title {
+  margin: 0 0 8px 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #b91c1c;
+}
+
+.rsm-alert-message {
+  margin: 0 0 20px 0;
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.rsm-alert-actions {
+  display: flex;
+  justify-content: center;
+}

@@ -1,0 +1,400 @@
+/* =============================================================
+   KNOWLEDGE ASSESSMENT ANSWER GUIDE (AT-ICTBWN307-01-AG)
+   EXACT WORD / A4 RTO COMPLIANCE STYLING
+============================================================== */
+
+:root {
+  --ag-maroon-dark: #6d1327;     /* Masthead banner background */
+  --ag-maroon-table: #86263e;    /* Deep wine table header */
+  --ag-tint-th: #f6edf0;         /* Blush pink control table & card header */
+  --ag-border-dark: #000000;     /* Crisp black table borders */
+  --ag-pass-green: #15803d;      /* Success green for CORRECT verdict */
+  --ag-fail-red: #b91c1c;        /* Red for Incorrect verdict */
+}
+
+@page {
+  size: A4 portrait;
+  margin: 14mm 12mm 16mm 12mm;
+}
+
+.ans-guide-sec * {
+  box-sizing: border-box;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+.ans-guide-sec {
+  width: 100%;
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Calibri, 'Segoe UI', Arial, sans-serif;
+  color: #000000;
+  font-size: 9.5pt;
+  line-height: 1.45;
+}
+
+/* Print sheet emulation container */
+.ans-guide-sec .a4-document-sheet {
+  width: 100%;
+  max-width: 840px;
+  background: #ffffff;
+  padding: 3rem 2.8rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Top running rule */
+.ans-guide-sec .doc-running-header {
+  font-size: 8.5pt;
+  font-style: italic;
+  color: #7a7278;
+  border-bottom: 1px solid var(--ag-maroon-dark);
+  padding-bottom: 4px;
+  margin-bottom: 1.5rem;
+}
+
+/* Masthead Banner */
+.ans-guide-sec .doc-masthead-banner {
+  display: flex;
+  background-color: var(--ag-maroon-dark) !important;
+  color: #ffffff;
+  border: 1px solid var(--ag-border-dark);
+  margin-bottom: 1.5rem;
+}
+
+.ans-guide-sec .doc-banner-logo {
+  width: 110px;
+  padding: 1.2rem 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 9.5pt;
+  color: #ffffff;
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.05em;
+  flex: 0 0 auto;
+}
+
+.ans-guide-sec .doc-banner-content {
+  padding: 0.8rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+}
+
+.ans-guide-sec .doc-banner-subtitle {
+  font-size: 8.5pt;
+  margin: 0 0 0.2rem 0;
+  color: #fcecef;
+  letter-spacing: 0.02em;
+}
+
+.ans-guide-sec .doc-banner-heading {
+  font-size: 15pt;
+  font-weight: 700;
+  margin: 0;
+  color: #ffffff;
+  letter-spacing: 0.01em;
+}
+
+.ans-guide-sec .doc-unit-title-row {
+  font-size: 11pt;
+  font-weight: 700;
+  color: #000000;
+  margin: 0 0 1.25rem 0;
+}
+
+/* Control & metadata tables */
+.ans-guide-sec .doc-control-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--ag-border-dark);
+  font-size: 9pt;
+  background: #ffffff;
+}
+
+.ans-guide-sec .doc-control-table th, 
+.ans-guide-sec .doc-control-table td {
+  border: 1px solid var(--ag-border-dark);
+  padding: 0.4rem 0.6rem;
+  vertical-align: top;
+}
+
+.ans-guide-sec .doc-control-table th {
+  background-color: var(--ag-tint-th) !important;
+  font-weight: 700;
+  text-align: left;
+}
+
+/* Section styling */
+.ans-guide-sec .doc-section {
+  margin-top: 1.5rem;
+}
+
+.ans-guide-sec .doc-sec-title {
+  font-size: 11.5pt;
+  font-weight: 700;
+  color: var(--ag-maroon-dark);
+  margin: 0 0 0.45rem 0;
+}
+
+.ans-guide-sec .doc-sec-intro {
+  margin: 0 0 0.6rem 0;
+  color: #1a1a1a;
+}
+
+.ans-guide-sec .doc-element-subheading {
+  font-size: 9.5pt;
+  font-weight: 700;
+  color: #000000;
+  background-color: var(--ag-tint-th) !important;
+  border-left: 3.5px solid var(--ag-maroon-dark);
+  padding: 0.35rem 0.6rem;
+  margin: 1.1rem 0 0.5rem 0;
+}
+
+/* Data Tables with Deep Maroon Headers */
+.ans-guide-sec .doc-grid-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+  border: 1px solid var(--ag-border-dark);
+  font-size: 8.8pt;
+  background: #ffffff;
+}
+
+.ans-guide-sec .doc-grid-table th,
+.ans-guide-sec .doc-grid-table td {
+  border: 1px solid var(--ag-border-dark);
+  padding: 0.4rem 0.55rem;
+  vertical-align: top;
+  text-align: left;
+}
+
+.ans-guide-sec .doc-grid-table thead th {
+  background-color: var(--ag-maroon-table) !important;
+  color: #ffffff !important;
+  font-weight: 700;
+  border: 1px solid var(--ag-border-dark);
+}
+
+.ans-guide-sec .doc-grid-table tbody tr:nth-child(even) td {
+  background-color: #faf7f8 !important;
+}
+
+/* Instruction & Notice Boxes */
+.ans-guide-sec .doc-callout-box {
+  background-color: var(--ag-tint-th) !important;
+  border: 1px solid #d4bfc6;
+  border-left: 3.5px solid var(--ag-maroon-dark);
+  padding: 0.65rem 0.85rem;
+  margin: 0.85rem 0;
+  font-size: 8.8pt;
+}
+
+.ans-guide-sec .doc-warning-box {
+  background-color: #fff9e6 !important;
+  border: 1px solid #e0c885;
+  border-left: 3.5px solid #b45309;
+  padding: 0.65rem 0.85rem;
+  margin: 0.85rem 0;
+  font-size: 8.5pt;
+  color: #78350f;
+}
+
+.ans-guide-sec .doc-badge-draft {
+  display: inline-block;
+  background-color: #fde8e8 !important;
+  color: #991b1b;
+  padding: 0.15rem 0.45rem;
+  font-size: 8pt;
+  font-weight: 700;
+  border-radius: 3px;
+}
+
+/* Part A Verdict Badges */
+.ans-guide-sec .verdict-correct {
+  color: var(--ag-pass-green);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.ans-guide-sec .verdict-incorrect {
+  color: var(--ag-fail-red);
+  font-weight: 600;
+}
+
+/* Part A Multiple Choice Question Group */
+.ans-guide-sec .qa-benchmark-block {
+  margin-bottom: 1.35rem;
+  page-break-inside: avoid;
+}
+
+.ans-guide-sec .qa-prompt-title {
+  font-size: 9.5pt;
+  font-weight: 700;
+  margin: 0 0 0.15rem 0;
+  color: #000000;
+  line-height: 1.4;
+}
+
+.ans-guide-sec .qa-meta-ke {
+  font-size: 8pt;
+  color: #555555;
+  margin: 0 0 0.35rem 0;
+  font-style: italic;
+}
+
+/* Part B Model Solution Cards */
+.ans-guide-sec .sa-benchmark-card {
+  margin-bottom: 1.4rem;
+  border: 1px solid var(--ag-border-dark);
+  background: #ffffff;
+  page-break-inside: avoid;
+}
+
+.ans-guide-sec .sa-card-header {
+  padding: 0.5rem 0.75rem;
+  background-color: var(--ag-tint-th) !important;
+  border-bottom: 1px solid var(--ag-border-dark);
+}
+
+.ans-guide-sec .sa-card-header h4 {
+  margin: 0 0 0.15rem 0;
+  font-size: 9.5pt;
+  color: #000000;
+  font-weight: 700;
+}
+
+.ans-guide-sec .sa-card-body {
+  padding: 0.75rem 0.85rem;
+}
+
+.ans-guide-sec .sa-card-subtitle {
+  font-size: 8.5pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--ag-maroon-dark);
+  margin: 0 0 0.3rem 0;
+}
+
+.ans-guide-sec .sa-model-text {
+  margin: 0 0 0.65rem 0;
+  font-size: 9pt;
+  color: #1a1a1a;
+  line-height: 1.45;
+}
+
+.ans-guide-sec .sa-calc-block {
+  background: #f8fafc;
+  border-left: 3px solid var(--ag-maroon-dark);
+  padding: 0.4rem 0.6rem;
+  font-family: Consolas, monospace;
+  font-size: 9pt;
+  margin: 0 0 0.65rem 0;
+  line-height: 1.4;
+}
+
+.ans-guide-sec .sa-benchmark-note {
+  background: #faf7f8;
+  border: 1px solid #d4bfc6;
+  padding: 0.5rem 0.7rem;
+  font-size: 8.5pt;
+  color: #000000;
+  margin: 0;
+}
+
+/* Helpers */
+.ans-guide-sec .text-center { text-align: center; }
+.ans-guide-sec .font-bold { font-weight: 700; }
+.ans-guide-sec .page-break-before {
+  page-break-before: always;
+  break-before: page;
+}
+
+/* Print Rules */
+@media print {
+  body {
+    background: #ffffff !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .ans-guide-sec {
+    padding: 0 !important;
+  }
+  .ans-guide-sec .a4-document-sheet {
+    max-width: 100% !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  table {
+    page-break-inside: auto;
+  }
+  tr {
+    page-break-inside: avoid;
+  }
+  thead {
+    display: table-header-group;
+  }
+}
+/* Add to your stylesheet (e.g. knowledgeAnswerview.css) */
+@media print {
+  body {
+    background: #ffffff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .answer-guide-action-bar,
+  .no-print {
+    display: none !important;
+  }
+
+  .official-document-sheet {
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+
+  /* Force sections to stay clean and avoid awkward page breaks mid-question */
+  .doc-section-content > div {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 20px !important;
+  }
+
+  .doc-standard-table {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
+
+/* Base table styling to mirror the professional RTO document layout */
+.doc-standard-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+  margin-bottom: 15px;
+  font-size: 9pt;
+}
+
+.doc-standard-table th, 
+.doc-standard-table td {
+  border: 1px solid #94a3b8;
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.doc-standard-table th {
+  background-color: #6b213a !important; /* Professional RTO maroon table header style */
+  color: #ffffff !important;
+  font-weight: 600;
+}

@@ -1,0 +1,244 @@
+/* =============================================================
+   PRACTICAL ASSESSMENT MARKING GUIDE (AT-ICTBWN307-02-AG)
+   EXACT WORD / A4 RTO COMPLIANCE STYLING
+============================================================== */
+
+:root {
+  --pmg-maroon-dark: #6d1327;    /* Masthead banner background */
+  --pmg-maroon-table: #86263e;   /* Deep wine table header */
+  --pmg-tint-th: #f6edf0;        /* Blush pink control table & card header */
+  --pmg-border-dark: #000000;    /* Crisp black table borders */
+  --pmg-pass-green: #15803d;     /* Success green */
+  --pmg-fail-red: #b91c1c;       /* Red */
+}
+
+@page {
+  size: A4 portrait;
+  margin: 14mm 12mm 16mm 12mm;
+}
+
+.practical-marking-wrapper * {
+  box-sizing: border-box;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+.practical-marking-wrapper {
+  width: 100%;
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Calibri, 'Segoe UI', Arial, sans-serif;
+  color: #000000;
+  font-size: 9.5pt;
+  line-height: 1.45;
+}
+
+/* Print Sheet Container */
+.practical-marking-wrapper .pmg-document-sheet {
+  width: 100%;
+  max-width: 840px;
+  background: #ffffff;
+  padding: 3rem 2.8rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Top running header */
+.practical-marking-wrapper .pmg-running-header {
+  font-size: 8.5pt;
+  font-style: italic;
+  color: #7a7278;
+  border-bottom: 1px solid var(--pmg-maroon-dark);
+  padding-bottom: 4px;
+  margin-bottom: 1.5rem;
+}
+
+/* Masthead Banner */
+.practical-marking-wrapper .pmg-masthead-banner {
+  display: flex;
+  background-color: var(--pmg-maroon-dark) !important;
+  color: #ffffff;
+  border: 1px solid var(--pmg-border-dark);
+  margin-bottom: 1.5rem;
+}
+
+.practical-marking-wrapper .pmg-banner-logo {
+  width: 110px;
+  padding: 1.2rem 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 9.5pt;
+  color: #ffffff;
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.05em;
+  flex: 0 0 auto;
+}
+
+.practical-marking-wrapper .pmg-banner-content {
+  padding: 0.8rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+}
+
+.practical-marking-wrapper .pmg-banner-subtitle {
+  font-size: 8.5pt;
+  margin: 0 0 0.2rem 0;
+  color: #fcecef;
+  letter-spacing: 0.02em;
+}
+
+.practical-marking-wrapper .pmg-banner-heading {
+  font-size: 14pt;
+  font-weight: 700;
+  margin: 0;
+  color: #ffffff;
+  letter-spacing: 0.01em;
+}
+
+.practical-marking-wrapper .pmg-unit-title-row {
+  font-size: 11pt;
+  font-weight: 700;
+  color: #000000;
+  margin: 0 0 1.25rem 0;
+}
+
+/* Control & metadata tables */
+.practical-marking-wrapper .pmg-control-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--pmg-border-dark);
+  font-size: 9pt;
+  background: #ffffff;
+}
+
+.practical-marking-wrapper .pmg-control-table th, 
+.practical-marking-wrapper .pmg-control-table td {
+  border: 1px solid var(--pmg-border-dark);
+  padding: 0.4rem 0.6rem;
+  vertical-align: top;
+}
+
+.practical-marking-wrapper .pmg-control-table th {
+  background-color: var(--pmg-tint-th) !important;
+  font-weight: 700;
+  text-align: left;
+}
+
+/* Section styling */
+.practical-marking-wrapper .pmg-section {
+  margin-top: 1.5rem;
+  page-break-inside: avoid;
+}
+
+.practical-marking-wrapper .pmg-sec-title {
+  font-size: 11.5pt;
+  font-weight: 700;
+  color: var(--pmg-maroon-dark);
+  margin: 0 0 0.45rem 0;
+}
+
+.practical-marking-wrapper .pmg-sec-intro {
+  margin: 0 0 0.6rem 0;
+  color: #1a1a1a;
+  text-align: justify;
+}
+
+.practical-marking-wrapper .pmg-element-subheading {
+  font-size: 9.5pt;
+  font-weight: 700;
+  color: #000000;
+  background-color: var(--pmg-tint-th) !important;
+  border-left: 3.5px solid var(--pmg-maroon-dark);
+  padding: 0.35rem 0.6rem;
+  margin: 1.1rem 0 0.5rem 0;
+}
+
+/* Data Tables with Deep Maroon Headers */
+.practical-marking-wrapper .pmg-grid-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+  border: 1px solid var(--pmg-border-dark);
+  font-size: 8.8pt;
+  background: #ffffff;
+}
+
+.practical-marking-wrapper .pmg-grid-table th,
+.practical-marking-wrapper .pmg-grid-table td {
+  border: 1px solid var(--pmg-border-dark);
+  padding: 0.4rem 0.55rem;
+  vertical-align: top;
+  text-align: left;
+}
+
+.practical-marking-wrapper .pmg-grid-table thead th {
+  background-color: var(--pmg-maroon-table) !important;
+  color: #ffffff !important;
+  font-weight: 700;
+  border: 1px solid var(--pmg-border-dark);
+}
+
+.practical-marking-wrapper .pmg-grid-table tbody tr:nth-child(even) td {
+  background-color: #faf7f8 !important;
+}
+
+/* Callouts & badges */
+.practical-marking-wrapper .pmg-callout-box {
+  background-color: var(--pmg-tint-th) !important;
+  border: 1px solid #d4bfc6;
+  border-left: 3.5px solid var(--pmg-maroon-dark);
+  padding: 0.65rem 0.85rem;
+  margin: 0.85rem 0;
+  font-size: 8.8pt;
+}
+
+.practical-marking-wrapper .pmg-badge-draft {
+  display: inline-block;
+  background-color: #fde8e8 !important;
+  color: #991b1b;
+  padding: 0.15rem 0.45rem;
+  font-size: 8pt;
+  font-weight: 700;
+  border-radius: 3px;
+}
+
+.practical-marking-wrapper .text-center { text-align: center; }
+.practical-marking-wrapper .font-bold { font-weight: 700; }
+.practical-marking-wrapper .page-break-before {
+  page-break-before: always;
+  break-before: page;
+}
+
+/* Print Rules */
+@media print {
+  body {
+    background: #ffffff !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .practical-marking-wrapper {
+    padding: 0 !important;
+  }
+  .practical-marking-wrapper .pmg-document-sheet {
+    max-width: 100% !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  table {
+    page-break-inside: auto;
+  }
+  tr {
+    page-break-inside: avoid;
+  }
+  thead {
+    display: table-header-group;
+  }
+}
