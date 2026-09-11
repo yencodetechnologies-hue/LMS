@@ -1,10 +1,7 @@
 import React from 'react';
-import { Printer } from 'lucide-react';
 import '../../styles/KnowledgeAnswerGuide.css';
 
 export default function KnowledgeAnswerGuideTab({ course }) {
-  const courseTitle = course?.title || 'ICTBWN307 Use optical measuring instruments — Assessor use only. Not for issue to students.';
-
   
   return (
     <div className="ans-guide-sec">

@@ -2,9 +2,6 @@ import React from 'react';
 import '../../styles/JobPackTemplateTab.css';
 
 export default function JobPackTemplateTab({ course }) {
-  const courseTitle = course?.title || 'ICTBWN307 Use optical measuring instruments — issued to the student at the start of AT-ICTBWN307-02';
-
-
   return (
     <div className="job-pack-wrapper">
     

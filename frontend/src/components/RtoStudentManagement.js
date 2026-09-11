@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { API_URL } from '../data/service';
 import DashboardLayout from '../components/DashboardLayout';
 import { Search, Eye, X, CheckCircle2, Clock } from 'lucide-react';
@@ -20,7 +20,7 @@ export default function RtoStudentManagement() {
   const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
   const userRtoNum = storedUser.rtoNumber || '';
 
-  const fetchStudentSubmissions = async () => {
+  const fetchStudentSubmissions = useCallback(async () => {
     try {
       if (!userRtoNum) {
         throw new Error('No RTO Number found in user session.');
@@ -36,11 +36,11 @@ export default function RtoStudentManagement() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [userRtoNum]);
 
   useEffect(() => {
     fetchStudentSubmissions();
-  }, [userRtoNum]);
+  }, [fetchStudentSubmissions]);
 
   const handleVerifySubmission = async (submissionId, status) => {
     try {
@@ -242,7 +242,7 @@ export default function RtoStudentManagement() {
                     } else if (resp.correctAnswer && resp.correctAnswer !== '""') {
                       // Fallback to legacy string format e.g. "[0]" if block lookup failed
                       try {
-                        const cleanVal = resp.correctAnswer.replace(/[\[\]"]/g, '');
+                        const cleanVal = resp.correctAnswer.replace(/[[\]"]/g, '');
                         if (cleanVal !== '') {
                           const correctIndices = cleanVal.split(',').map(i => parseInt(i.trim(), 10));
                           correctAnsText = correctIndices
