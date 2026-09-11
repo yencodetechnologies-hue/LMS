@@ -1,5 +1,4 @@
 import React from 'react';
-import { Printer } from 'lucide-react';
 import '../../styles/PracticalMarkingGuide.css';
 
 export default function PracticalMarkingGuideTab({ course }) {

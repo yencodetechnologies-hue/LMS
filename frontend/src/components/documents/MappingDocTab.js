@@ -2,7 +2,7 @@ import React from 'react';
 import '../../styles/MappingDocument.css';
 
 export default function MappingDocTab({ course }) {
-  const courseTitle = course?.title || 'ICTBWN307 Use optical measuring instruments — Release 1';
+ // const courseTitle = course?.title || 'ICTBWN307 Use optical measuring instruments — Release 1';
 
   return (
     <div className="mapping-a4-document">

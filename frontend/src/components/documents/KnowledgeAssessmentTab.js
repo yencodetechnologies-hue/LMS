@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import { API_URL } from '../../data/service';
 import {
   GripVertical,
   Plus,
   Trash2,
   RotateCcw,
   Inbox,
-  MousePointerClick,
   CircleDot,
   CheckSquare,
   Heading,
@@ -496,7 +494,7 @@ export default function KnowledgeAssessmentTab({ course, assessmentType = 'knowl
       const flattenedCanvasBlocks = pages.flat();
       const htmlContent = buildStandaloneHtml(pages, courseTitle);
       
-      const res = await fetch(`${API_URL}/api/courses/${activeCourseId}/assessment/${assessmentType}`, {
+      const res = await fetch(`http://localhost:5000/api/courses/${activeCourseId}/assessment/${assessmentType}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Printer } from 'lucide-react';
 import '../../styles/JobPackTemplateTab.css';
 
 export default function JobPackTemplateTab({ course }) {

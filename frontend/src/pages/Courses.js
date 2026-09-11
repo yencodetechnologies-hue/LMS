@@ -11,7 +11,6 @@ import {
   X,
   ChevronLeft,
   ChevronRight,
-  ExternalLink,
   Image as ImageIcon,
 } from 'lucide-react';
 import DashboardLayout from '../components/DashboardLayout';
