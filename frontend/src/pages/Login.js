@@ -64,7 +64,7 @@ const payload = {
           type="email"
           name="email"
           required
-          placeholder="User Name"
+          placeholder="Email"
           value={formData.email}
           onChange={handleChange}
           className="auth-input-flat"

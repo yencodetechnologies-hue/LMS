@@ -17,11 +17,14 @@ const teacherSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Hash password before save, only if modified
-teacherSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) return next();
+// Hash password before save, only if modified.
+// NOTE: this is an async function, so Mongoose treats the returned Promise
+// as the completion signal — it does NOT pass a `next` callback in.
+// Do not declare or call `next()` here; that mix throws
+// "TypeError: next is not a function".
+teacherSchema.pre('save', async function () {
+  if (!this.isModified('password')) return;
   this.password = await bcrypt.hash(this.password, 10);
-  next();
 });
 
 teacherSchema.methods.comparePassword = function (candidatePassword) {

@@ -8,7 +8,7 @@ import '../styles/dashboard.css';
 
 const rtoSubItems = [
   { label: 'RTO', path: '/dashboard/rto' },
-  { label: 'Teacher', path: '/dashboard/rto/teacher' },
+  // { label: 'Teacher', path: '/dashboard/rto/teacher' },
 ];
 
 export default function Sidebar({ isOpen, onClose, collapsed }) {

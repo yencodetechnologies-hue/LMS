@@ -19,21 +19,27 @@ export default function RtoStudentManagement() {
 
 
 
-  // Lists ALL submissions across every RTO, not scoped to the logged-in
-  // user's own rtoNumber.
-  const fetchStudentSubmissions = useCallback(async () => {
-    try {
-      const response = await fetch(`${API_URL}/api/students/submissions/all`);
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.message || 'Failed to fetch student submissions');
+const fetchStudentSubmissions = useCallback(async () => {
+  try {
+    // Retrieve the user object or direct rtoNumber from localStorage
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    const rtoNumber = storedUser?.rtoNumber || localStorage.getItem('rtoNumber');
 
-      setSubmissions(data.submissions || data);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
+    if (!rtoNumber) {
+      throw new Error('RTO number not found in local storage');
     }
-  }, []);
+
+    const response = await fetch(`${API_URL}/api/students/submissions/rto/${rtoNumber}`);
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message || 'Failed to fetch student submissions');
+
+    setSubmissions(data.submissions || data);
+  } catch (err) {
+    setError(err.message);
+  } finally {
+    setLoading(false);
+  }
+}, []);
 
   const fetchTeachers = useCallback(async () => {
     try {
@@ -140,6 +146,7 @@ export default function RtoStudentManagement() {
           <table className="rto-data-table">
             <thead>
               <tr>
+                <th>S.No</th>
                 <th>Student Name</th>
                 <th>Student ID</th>
                 <th>Email</th>
@@ -152,41 +159,45 @@ export default function RtoStudentManagement() {
             <tbody>
               {paginatedSubmissions.length === 0 ? (
                 <tr>
-                  <td colSpan="7" className="rto-empty-cell">No student submissions found.</td>
+                  <td colSpan="8" className="rto-empty-cell">No student submissions found.</td>
                 </tr>
               ) : (
-                paginatedSubmissions.map((sub, idx) => (
-                  <tr key={sub._id || idx}>
-                    <td className="fw-medium">{sub.student?.studentName || 'N/A'}</td>
-                    <td>{sub.student?.studentId || 'N/A'}</td>
-                    <td>{sub.student?.studentEmail || 'N/A'}</td>
-                    <td>{sub.rtoId || 'N/A'}</td>
-                    <td>{sub.submittedAt ? new Date(sub.submittedAt).toLocaleString() : 'N/A'}</td>
-                    <td>
-                      <select
-                        className="rto-assign-select"
-                        value={sub.assignedTeacher?.teacherId?._id || sub.assignedTeacher?.teacherId || ''}
-                        onChange={(e) => handleAssignTeacher(sub._id, e.target.value)}
-                        disabled={assigningId === sub._id}
-                        title="Assign a teacher to review this submission"
-                      >
-                        <option value="">— Unassigned —</option>
-                        {teachers.map((t) => (
-                          <option key={t._id} value={t._id}>{t.name}</option>
-                        ))}
-                      </select>
-                    </td>
-                    <td className="text-center">
-                      <button
-                        onClick={() => setSelectedSubmission(sub)}
-                        className="rto-view-btn"
-                        title="Review Assessment Details"
-                      >
-                        <Eye size={16} /> Review
+                paginatedSubmissions.map((sub, idx) => {
+                  const serialNumber = (currentPage - 1) * itemsPerPage + idx + 1;
+                  return (
+                    <tr key={sub._id || idx}>
+                      <td>{serialNumber}</td>
+                      <td className="fw-medium">{sub.student?.studentName || 'N/A'}</td>
+                      <td>{sub.student?.studentId || 'N/A'}</td>
+                      <td>{sub.student?.studentEmail || 'N/A'}</td>
+                      <td>{sub.rtoId || 'N/A'}</td>
+                      <td>{sub.submittedAt ? new Date(sub.submittedAt).toLocaleString() : 'N/A'}</td>
+                      <td>
+                        <select
+                          className="rto-assign-select"
+                          value={sub.assignedTeacher?.teacherId?._id || sub.assignedTeacher?.teacherId || ''}
+                          onChange={(e) => handleAssignTeacher(sub._id, e.target.value)}
+                          disabled={assigningId === sub._id}
+                          title="Assign a teacher to review this submission"
+                        >
+                          <option value="">— Unassigned —</option>
+                          {teachers.map((t) => (
+                            <option key={t._id} value={t._id}>{t.name}</option>
+                          ))}
+                        </select>
+                      </td>
+                      <td className="text-center">
+                        <button
+                          onClick={() => setSelectedSubmission(sub)}
+                          className="rto-view-btn"
+                          title="Review Assessment Details"
+                        >
+                          <Eye size={16} /> Review
                       </button>
                     </td>
-                  </tr>
-                ))
+                    </tr>
+                  );
+                })
               )}
             </tbody>
           </table>

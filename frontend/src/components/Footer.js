@@ -3,7 +3,7 @@ import React from 'react';
 export default function Footer() {
   return (
     <footer className="edumarket-footer">
-      <div className="footer-grid-container">
+      {/* <div className="footer-grid-container">
         <div>
           <h4 className="footer-col-title">About</h4>
           <ul className="footer-links-list">
@@ -38,7 +38,7 @@ export default function Footer() {
             <li>Privacy</li>
           </ul>
         </div>
-      </div>
+      </div> */}
       <div className="footer-bottom-bar">
         <p>© 2026 EduMarket Learning Platform. All Rights Reserved.</p>
         <p>Designed for Professional Growth & Excellence</p>

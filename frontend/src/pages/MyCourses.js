@@ -124,7 +124,7 @@ export default function MyCourses() {
                         <div className="table-course-title">{course.title || course.name}</div>
                       </td>
                       <td>
-                        <div><strong>Category:</strong> {course.category || 'N/A'}</div>
+                        <div>{course.category || 'N/A'}</div>
                       </td>
                       <td>
                         <div>${course.fee !== undefined ? course.fee : '0'}</div>
@@ -193,13 +193,15 @@ export default function MyCourses() {
           const knowledgeAssessmentUrl = course.knowledgeAssessmentUrl || knowledgeAssessmentGeneratedUrl;
           const practicalAssessmentUrl = course.practicalAssessmentUrl || practicalAssessmentGeneratedUrl;
 
+          // Display order: Mapping Document -> Knowledge Assessment -> Knowledge Answer Guide
+          // -> Practical Assessment -> Practical Marking Guide -> Job Pack
           const urlRows = [
-            { key: 'jobPack', label: 'Job Pack Template URL:', url: jobPackUrl },
-            { key: 'knowledgeAnswer', label: 'Knowledge Answer Guide URL:', url: knowledgeAnswerUrl },
             { key: 'mappingDoc', label: 'Mapping Document URL:', url: mappingDocUrl },
-            { key: 'practicalMarking', label: 'Practical Marking Guide URL:', url: practicalMarkingUrl },
             { key: 'knowledgeAssessment', label: 'Knowledge Assessment URL:', url: knowledgeAssessmentUrl },
+            { key: 'knowledgeAnswer', label: 'Knowledge Answer Guide URL:', url: knowledgeAnswerUrl },
             { key: 'practicalAssessment', label: 'Practical Assessment URL:', url: practicalAssessmentUrl },
+            { key: 'practicalMarking', label: 'Practical Marking Guide URL:', url: practicalMarkingUrl },
+            { key: 'jobPack', label: 'Job Pack Template URL:', url: jobPackUrl },
           ];
 
           return (

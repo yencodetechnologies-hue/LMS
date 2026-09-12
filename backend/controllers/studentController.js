@@ -2,10 +2,26 @@ const mongoose = require('mongoose');
 const StudentSubmission = require('../models/StudentSubmission');
 const Course = require('../models/Course');
 const Teacher = require('../models/Teacher');
+const { uploadStream } = require('../config/cloudinary');
+
+// Converts a base64 data-URL signature (from the canvas) to a Buffer and
+// uploads it via the shared uploadStream helper. Returns the hosted
+// Cloudinary URL, or '' if no signature was provided.
+async function uploadSignatureIfPresent(base64DataUrl, folder) {
+  if (!base64DataUrl || !base64DataUrl.startsWith('data:image')) return '';
+
+  const base64Payload = base64DataUrl.split(',')[1]; // strip "data:image/png;base64," prefix
+  if (!base64Payload) return '';
+
+  const fileBuffer = Buffer.from(base64Payload, 'base64');
+  const result = await uploadStream(fileBuffer, folder);
+
+  return result.secure_url;
+}
 
 exports.submitStudentForm = async (req, res) => {
   try {
-    const { student, rtoId, courseId, responses, status } = req.body;
+    const { student, rtoId, courseId, responses, status, studentSignature } = req.body;
 
     if (!student || !rtoId || !courseId) {
       return res.status(400).json({
@@ -15,6 +31,7 @@ exports.submitStudentForm = async (req, res) => {
     }
 
     const hasAnswers = Array.isArray(responses) && responses.length > 0;
+    const now = new Date(); // server-side dynamic "today" — never trust client-sent dates
 
     let existingSubmission = await StudentSubmission.findOne({
       rtoId: rtoId.trim(),
@@ -22,25 +39,40 @@ exports.submitStudentForm = async (req, res) => {
       'student.studentId': student.studentId.trim()
     });
 
+    // Upload signature (if provided) before touching the document, so a
+    // failed upload doesn't leave the submission partially saved.
+    let uploadedSignatureUrl = '';
+    if (studentSignature) {
+      uploadedSignatureUrl = await uploadSignatureIfPresent(
+        studentSignature,
+        `students/${student.studentId.trim()}`
+      );
+    }
+
     if (existingSubmission) {
       if (hasAnswers) {
         const isReattemptResubmission = existingSubmission.status === 2;
 
         existingSubmission.responses = responses;
-        existingSubmission.submittedAt = Date.now();
-        
-        // Respect explicitly passed status (e.g. from frontend or keep default fallback 3)
+        existingSubmission.submittedAt = now;
         existingSubmission.status = status !== undefined && status !== null ? Number(status) : 3;
+        existingSubmission.attemptNumber = (existingSubmission.attemptNumber || 0) + 1;
+
+        if (uploadedSignatureUrl) {
+          existingSubmission.studentSignature = uploadedSignatureUrl;
+          existingSubmission.studentSignedDate = now;
+        }
 
         if (isReattemptResubmission) {
           existingSubmission.teacherFeedback = [];
           existingSubmission.reviewedAt = undefined;
           existingSubmission.reviewedBy = undefined;
+          existingSubmission.assessorSignature = '';
+          existingSubmission.assessorSignedDate = undefined;
         }
 
         await existingSubmission.save();
       } else if (status !== undefined && status !== null) {
-        // Allow updating status alone even if responses array wasn't passed in this payload block
         existingSubmission.status = Number(status);
         await existingSubmission.save();
       }
@@ -58,7 +90,11 @@ exports.submitStudentForm = async (req, res) => {
       rtoId,
       courseId,
       responses: responses || [],
-      status: status !== undefined && status !== null ? Number(status) : (hasAnswers ? 3 : 0)
+      status: status !== undefined && status !== null ? Number(status) : (hasAnswers ? 3 : 0),
+      attemptNumber: hasAnswers ? 1 : 0,
+      studentSignature: uploadedSignatureUrl,
+      studentSignedDate: uploadedSignatureUrl ? now : undefined,
+      submittedAt: now,
     });
 
     await newSubmission.save();
@@ -235,7 +271,7 @@ exports.verifySubmission = async (req, res) => {
     }
 
     submission.status = Number(status);
-    submission.reviewedAt = Date.now();
+    submission.reviewedAt = new Date();
     await submission.save();
 
     return res.status(200).json({
@@ -250,13 +286,14 @@ exports.verifySubmission = async (req, res) => {
 };
 
 // @desc    Save/update a teacher's Assessor result / Feedback / Overall
-//          outcome entries against a student's submission.
+//          outcome entries against a student's submission, plus the
+//          assessor's signature (uploaded to Cloudinary).
 // @route   PUT /api/students/submissions/:submissionId/feedback
 // @access  Private (RTO staff / teacher)
 exports.submitTeacherFeedback = async (req, res) => {
   try {
     const { submissionId } = req.params;
-    const { teacherFeedback, status, reviewedBy } = req.body;
+    const { teacherFeedback, status, reviewedBy, assessorSignature } = req.body;
 
     if (!Array.isArray(teacherFeedback)) {
       return res.status(400).json({
@@ -277,6 +314,8 @@ exports.submitTeacherFeedback = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Submission not found' });
     }
 
+    const now = new Date();
+
     const validLabels = ['Assessor result', 'Feedback', 'Overall outcome'];
     const cleanedFeedback = teacherFeedback
       .filter((entry) => entry && validLabels.includes(entry.label))
@@ -287,13 +326,25 @@ exports.submitTeacherFeedback = async (req, res) => {
       }));
 
     submission.teacherFeedback = cleanedFeedback;
-    submission.reviewedAt = Date.now();
+    submission.reviewedAt = now;
 
     if (reviewedBy && (reviewedBy.teacherId || reviewedBy.teacherName)) {
       submission.reviewedBy = {
         teacherId: reviewedBy.teacherId || '',
         teacherName: reviewedBy.teacherName || ''
       };
+    }
+
+    if (assessorSignature) {
+      const folderKey = reviewedBy?.teacherId || submission._id.toString();
+      const uploadedUrl = await uploadSignatureIfPresent(
+        assessorSignature,
+        `assessors/${folderKey}`
+      );
+      if (uploadedUrl) {
+        submission.assessorSignature = uploadedUrl;
+        submission.assessorSignedDate = now;
+      }
     }
 
     if (status !== undefined && status !== null) {
@@ -331,7 +382,6 @@ exports.assignTeacherToSubmission = async (req, res) => {
     }
 
     if (!teacherId) {
-      // Unassign
       submission.assignedTeacher = { teacherId: null, teacherName: '', teacherEmail: '', assignedAt: null };
       await submission.save();
       return res.status(200).json({
@@ -350,7 +400,7 @@ exports.assignTeacherToSubmission = async (req, res) => {
       teacherId: teacher._id,
       teacherName: teacher.name,
       teacherEmail: teacher.email,
-      assignedAt: Date.now()
+      assignedAt: new Date()
     };
 
     await submission.save();

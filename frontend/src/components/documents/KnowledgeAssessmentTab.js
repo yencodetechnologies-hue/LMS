@@ -167,7 +167,7 @@ function buildStandaloneHtml(pages, courseTitle) {
   const pagesHtml = pages.map((pageBlocks, pIdx) => {
     const pageBody = pageBlocks.map((block) => blockToHtml(block)).join('\n');
     return `
-      <div class="word-a4-sheet" style="width:780px; max-width:100%; min-height:auto; height:auto; background:#fff; padding:2rem 2.5rem; color:#1e293b; font-size:9.5pt; line-height:1.4; box-sizing:border-box; margin:0 auto 1.5rem auto; page-break-after: always; position:relative; overflow:visible;">
+      <div class="word-a4-sheet" style="width:780px; max-width:100%; min-height:auto; height:auto; background:#fff; color:#1e293b; font-size:9.5pt; line-height:1.4; box-sizing:border-box; page-break-after: always; position:relative; overflow:visible;">
         ${pIdx === 0 ? `
         <div class="word-masthead" style="display:flex; gap:1rem; border-bottom:2px solid #3a0d24; padding-bottom:0.5rem; margin-bottom:1rem;">
           <div class="word-logo-box" style="width:50px; height:50px; border:1px solid #e8e2dc; display:flex; align-items:center; justify-content:center; font-weight:bold; color:#8a7f7a; background:#fbf9f7; border-radius:6px; font-size:8pt;">[LOGO]</div>

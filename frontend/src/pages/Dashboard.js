@@ -4,10 +4,10 @@ import DashboardLayout from '../components/DashboardLayout';
 import '../styles/dashboard.css';
 
 const stats = [
-  { label: 'Total Courses', value: '24', change: '+3 this month', icon: BookOpen, accent: 'pink' },
-  { label: 'Total Students', value: '1,248', change: '+96 this month', icon: Users, accent: 'gold' },
-  { label: 'Total Teachers', value: '38', change: '+2 this month', icon: GraduationCap, accent: 'plum' },
-  { label: 'Pending Questions', value: '17', change: '5 unresolved', icon: HelpCircle, accent: 'coral' },
+  { label: 'Total Courses', value: '0', change: '0 this month', icon: BookOpen, accent: 'pink' },
+  { label: 'Total Students', value: '0', change: '0 this month', icon: Users, accent: 'gold' },
+  { label: 'Total Teachers', value: '0', change: '0 this month', icon: GraduationCap, accent: 'plum' },
+  { label: 'Pending Questions', value: '0', change: '0 unresolved', icon: HelpCircle, accent: 'coral' },
 ];
 
 const recentCourses = [
@@ -38,39 +38,7 @@ export default function Dashboard() {
         ))}
       </div>
 
-      <div className="dash-panel">
-        <div className="dash-panel-header">
-          <h2>Recent courses</h2>
-          <a href="/dashboard/courses" className="dash-panel-link">
-            View all <ArrowUpRight size={14} />
-          </a>
-        </div>
-
-        <table className="dash-table">
-          <thead>
-            <tr>
-              <th>Course</th>
-              <th>Teacher</th>
-              <th>Students</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {recentCourses.map((course) => (
-              <tr key={course.name}>
-                <td>{course.name}</td>
-                <td>{course.teacher}</td>
-                <td>{course.students}</td>
-                <td>
-                  <span className={`dash-badge ${course.status === 'Active' ? 'badge-active' : 'badge-draft'}`}>
-                    {course.status}
-                  </span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+     
     </DashboardLayout>
   );
 }

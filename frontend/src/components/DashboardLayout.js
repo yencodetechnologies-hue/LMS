@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Bell, Search, Menu } from 'lucide-react';
 import Sidebar from './Sidebar';
 import '../styles/dashboard.css';
@@ -7,6 +8,7 @@ export default function DashboardLayout({ title, subtitle, children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false); // Mobile drawer toggle
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false); // Desktop collapse toggle
   const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
+  const navigate = useNavigate();
 
   const handleHamburgerClick = () => {
     if (window.innerWidth <= 900) {
@@ -47,7 +49,14 @@ export default function DashboardLayout({ title, subtitle, children }) {
               <Bell size={18} />
               <span className="dash-bell-dot" />
             </button>
-            <div className="dash-avatar-sm">{(storedUser.name || 'A')[0]}</div>
+            <div
+              className="dash-avatar-sm"
+              onClick={() => navigate('/dashboard/rto-profile')}
+              style={{ cursor: 'pointer' }}
+              title="View profile"
+            >
+              {(storedUser.name || 'A')[0]}
+            </div>
           </div>
         </header>
         <div className="dash-content">{children}</div>

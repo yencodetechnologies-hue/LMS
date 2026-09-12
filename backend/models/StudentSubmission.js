@@ -41,6 +41,18 @@ const studentSubmissionSchema = new mongoose.Schema(
       teacherEmail: { type: String, trim: true, default: '' },
       assignedAt: { type: Date }
     },
+    // Signatures are stored as Cloudinary secure_url strings — uploaded
+    // server-side from the base64 PNG the canvas sends up (see
+    // uploadSignatureIfPresent in studentController.js) — never as raw
+    // base64 in the document itself.
+    studentSignature: { type: String, trim: true, default: '' },
+    studentSignedDate: { type: Date },
+    // Bound the exact same way as studentSignature — same field shape
+    // (Cloudinary URL string + a separate signed-date timestamp), just
+    // populated from submitTeacherFeedback instead of submitStudentForm.
+    assessorSignature: { type: String, trim: true, default: '' },
+    assessorSignedDate: { type: Date },
+    attemptNumber: { type: Number, default: 0 },
     submittedAt: { type: Date, default: Date.now },
     status: { type: Number, enum: [0, 1, 2, 3], default: 0 },
     reviewedAt: { type: Date },
