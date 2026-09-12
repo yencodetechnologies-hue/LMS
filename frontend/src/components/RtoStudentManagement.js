@@ -2,31 +2,28 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { API_URL } from '../data/service';
 import DashboardLayout from '../components/DashboardLayout';
 import { Search, Eye, X, CheckCircle2, Clock } from 'lucide-react';
-import '../styles/dashboard.css';
-import '../styles/RtoUserList.css';
 import '../styles/RtoStudentManagement.css';
 
 export default function RtoStudentManagement() {
   const [submissions, setSubmissions] = useState([]);
+  const [teachers, setTeachers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedSubmission, setSelectedSubmission] = useState(null);
-  const [confirmAction, setConfirmAction] = useState(null); // { type: 'approve' | 'reattempt', submissionId: string } | null
-  const [errorAlert, setErrorAlert] = useState(null); // string | null
+  const [confirmAction, setConfirmAction] = useState(null);
+  const [errorAlert, setErrorAlert] = useState(null);
+  const [assigningId, setAssigningId] = useState(null); // submissionId currently mid-assign, for a small loading state
   const itemsPerPage = 8;
 
-  const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
-  const userRtoNum = storedUser.rtoNumber || '';
 
+
+  // Lists ALL submissions across every RTO, not scoped to the logged-in
+  // user's own rtoNumber.
   const fetchStudentSubmissions = useCallback(async () => {
     try {
-      if (!userRtoNum) {
-        throw new Error('No RTO Number found in user session.');
-      }
-
-      const response = await fetch(`${API_URL}/api/students/submissions/rto/${userRtoNum}`);
+      const response = await fetch(`${API_URL}/api/students/submissions/all`);
       const data = await response.json();
       if (!response.ok) throw new Error(data.message || 'Failed to fetch student submissions');
 
@@ -36,11 +33,25 @@ export default function RtoStudentManagement() {
     } finally {
       setLoading(false);
     }
-  }, [userRtoNum]);
+  }, []);
+
+  const fetchTeachers = useCallback(async () => {
+    try {
+      const response = await fetch(`${API_URL}/api/rto/teachers`);
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || 'Failed to fetch teachers');
+      setTeachers(data.teachers || []);
+    } catch (err) {
+      // Don't block the whole page if teachers fail to load — assignment
+      // just won't be available.
+      console.error('Error fetching teachers:', err);
+    }
+  }, []);
 
   useEffect(() => {
     fetchStudentSubmissions();
-  }, [fetchStudentSubmissions]);
+    fetchTeachers();
+  }, [fetchStudentSubmissions, fetchTeachers]);
 
   const handleVerifySubmission = async (submissionId, status) => {
     try {
@@ -61,13 +72,37 @@ export default function RtoStudentManagement() {
     }
   };
 
+  const handleAssignTeacher = async (submissionId, teacherId) => {
+    setAssigningId(submissionId);
+    try {
+      const response = await fetch(`${API_URL}/api/students/submissions/${submissionId}/assign-teacher`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ teacherId: teacherId || null })
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || 'Failed to assign teacher');
+
+      // Update the row in place instead of a full refetch, so the table
+      // doesn't jump/reset scroll or pagination.
+      setSubmissions((prev) =>
+        prev.map((s) => (s._id === submissionId ? data.submission : s))
+      );
+    } catch (err) {
+      setErrorAlert(err.message);
+    } finally {
+      setAssigningId(null);
+    }
+  };
+
   const filteredSubmissions = submissions.filter((item) => {
     const query = searchTerm.toLowerCase();
     const student = item.student || {};
     return (
       (student.studentName && student.studentName.toLowerCase().includes(query)) ||
       (student.studentEmail && student.studentEmail.toLowerCase().includes(query)) ||
-      (student.studentId && student.studentId.toLowerCase().includes(query))
+      (student.studentId && student.studentId.toLowerCase().includes(query)) ||
+      (item.rtoId && item.rtoId.toLowerCase().includes(query))
     );
   });
 
@@ -85,8 +120,8 @@ export default function RtoStudentManagement() {
       <div className="dashboard-content-wrapper rto-users-wrapper">
         <div className="rto-header-flex">
           <div className="rto-title-area">
-            <h1>Student Submissions Management</h1>
-            <p>Review student assessment results for RTO Number: <strong>{userRtoNum}</strong></p>
+            <h1>All Student Submissions</h1>
+            <p>Review student assessment results across every RTO.</p>
           </div>
 
           <div className="rto-search-box">
@@ -94,7 +129,7 @@ export default function RtoStudentManagement() {
             <input
               type="text"
               className="rto-search-input"
-              placeholder="Search by student name, email, ID..."
+              placeholder="Search by student name, email, ID, RTO..."
               value={searchTerm}
               onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1); }}
             />
@@ -108,14 +143,16 @@ export default function RtoStudentManagement() {
                 <th>Student Name</th>
                 <th>Student ID</th>
                 <th>Email</th>
+                <th>RTO</th>
                 <th>Submitted Date</th>
+                <th>Assigned Teacher</th>
                 <th className="text-center">Actions</th>
               </tr>
             </thead>
             <tbody>
               {paginatedSubmissions.length === 0 ? (
                 <tr>
-                  <td colSpan="5" className="rto-empty-cell">No student submissions found.</td>
+                  <td colSpan="7" className="rto-empty-cell">No student submissions found.</td>
                 </tr>
               ) : (
                 paginatedSubmissions.map((sub, idx) => (
@@ -123,7 +160,22 @@ export default function RtoStudentManagement() {
                     <td className="fw-medium">{sub.student?.studentName || 'N/A'}</td>
                     <td>{sub.student?.studentId || 'N/A'}</td>
                     <td>{sub.student?.studentEmail || 'N/A'}</td>
+                    <td>{sub.rtoId || 'N/A'}</td>
                     <td>{sub.submittedAt ? new Date(sub.submittedAt).toLocaleString() : 'N/A'}</td>
+                    <td>
+                      <select
+                        className="rto-assign-select"
+                        value={sub.assignedTeacher?.teacherId?._id || sub.assignedTeacher?.teacherId || ''}
+                        onChange={(e) => handleAssignTeacher(sub._id, e.target.value)}
+                        disabled={assigningId === sub._id}
+                        title="Assign a teacher to review this submission"
+                      >
+                        <option value="">— Unassigned —</option>
+                        {teachers.map((t) => (
+                          <option key={t._id} value={t._id}>{t.name}</option>
+                        ))}
+                      </select>
+                    </td>
                     <td className="text-center">
                       <button
                         onClick={() => setSelectedSubmission(sub)}
@@ -166,7 +218,6 @@ export default function RtoStudentManagement() {
           <div className="rto-modal-overlay">
             <div className="rto-modal-box rsm-review-modal">
 
-              {/* Modal Header */}
               <div className="rsm-modal-header">
                 <div>
                   <h2 className="rsm-modal-title">Assessment Review</h2>
@@ -179,11 +230,15 @@ export default function RtoStudentManagement() {
                 </button>
               </div>
 
-              {/* Modal Content / Questions Body */}
               <div className="rsm-modal-body">
                 <div className="rsm-meta-bar">
                   <span><strong>Email:</strong> {selectedSubmission.student?.studentEmail}</span>
+                  <span><strong>RTO:</strong> {selectedSubmission.rtoId}</span>
                   <span><strong>Submitted:</strong> {new Date(selectedSubmission.submittedAt).toLocaleDateString()}</span>
+                  <span>
+                    <strong>Assigned to:</strong>{' '}
+                    {selectedSubmission.assignedTeacher?.teacherName || 'Unassigned'}
+                  </span>
                 </div>
 
                 <h3 className="rsm-section-heading">Question Responses</h3>
@@ -192,12 +247,8 @@ export default function RtoStudentManagement() {
                   selectedSubmission.responses.map((resp, rIdx) => {
                     const course = selectedSubmission.courseId || {};
                     const allBlocks = course.knowledgeAssessment?.canvasBlocks || [];
-
-                    // Only actual question blocks carry options/correctAnswer
                     const questionBlocks = allBlocks.filter((b) => b.type === 'question');
 
-                    // Match the response to its source block: prefer instanceId,
-                    // then exact question text, then fall back to positional order
                     const questionBlock =
                       questionBlocks.find((b) => resp.instanceId && b.instanceId === resp.instanceId) ||
                       questionBlocks.find((b) => resp.questionText && b.text?.trim() === resp.questionText?.trim()) ||
@@ -205,7 +256,6 @@ export default function RtoStudentManagement() {
 
                     const availableOptions = questionBlock?.options || resp.options || [];
 
-                    // Resolve Student Answer text from index selection
                     let studentAnsText = 'No answer provided';
                     if (resp.studentSelection !== undefined && resp.studentSelection !== null && resp.studentSelection !== '' && resp.studentSelection !== 'No answer provided') {
                       const indices = Array.isArray(resp.studentSelection)
@@ -222,9 +272,6 @@ export default function RtoStudentManagement() {
                         .join(', ');
                     }
 
-                    // Resolve Correct Answer text — source of truth is the question
-                    // block's own correctAnswer (a plain option index, or array for
-                    // multi-select), NOT resp.correctAnswer's legacy "[0]" string
                     let correctAnsText = 'Teacher review required';
                     if (questionBlock && questionBlock.correctAnswer !== undefined && questionBlock.correctAnswer !== null) {
                       const correctIndices = Array.isArray(questionBlock.correctAnswer)
@@ -240,7 +287,6 @@ export default function RtoStudentManagement() {
                         })
                         .join(', ');
                     } else if (resp.correctAnswer && resp.correctAnswer !== '""') {
-                      // Fallback to legacy string format e.g. "[0]" if block lookup failed
                       try {
                         const cleanVal = resp.correctAnswer.replace(/[[\]"]/g, '');
                         if (cleanVal !== '') {
@@ -269,10 +315,7 @@ export default function RtoStudentManagement() {
 
                         <p className="rsm-question-text">{resp.questionText}</p>
 
-                        {/* Three Column View: Options, Student Answer, Correct Answer */}
                         <div className="rsm-answer-grid">
-
-                          {/* Column 1: Options / Question Info */}
                           <div className="rsm-answer-col rsm-options-col">
                             <span className="rsm-col-label">Options:</span>
                             <div className="rsm-options-list">
@@ -286,18 +329,15 @@ export default function RtoStudentManagement() {
                             </div>
                           </div>
 
-                          {/* Column 2: Student Answer with Dynamic Color Styling */}
                           <div className={`rsm-answer-col ${isCorrect ? 'rsm-answer-correct' : 'rsm-answer-incorrect'}`}>
                             <span className="rsm-col-label">Student Answer:</span>
                             <span className="rsm-answer-value">{studentAnsText}</span>
                           </div>
 
-                          {/* Column 3: Correct Answer */}
                           <div className="rsm-answer-col rsm-correct-col">
                             <span className="rsm-col-label">Correct Answer:</span>
                             <span className="rsm-answer-value">{correctAnsText}</span>
                           </div>
-
                         </div>
                       </div>
                     );
@@ -307,7 +347,6 @@ export default function RtoStudentManagement() {
                 )}
               </div>
 
-              {/* Modal Footer with Verify Actions */}
               <div className="rsm-modal-footer">
                 <span className="rsm-footer-note">Review responses thoroughly before marking candidate status.</span>
                 <div className="rsm-footer-actions">

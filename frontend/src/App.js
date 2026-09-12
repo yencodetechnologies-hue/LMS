@@ -15,6 +15,9 @@ import KnowledgeAnswerGuideView from './pages/KnowledgeAnswerGuideView'
 import RtoUserManagement from './components/RtoUserManagement';
 import RtoTeacherManagement from './pages/RtoTeacherManagement';
 import RtoStudentManagement from './components/RtoStudentManagement';
+import MappingDocumentPage from './components/Mappingdocumentpage';
+import TeacherList from './pages/TeacherList';
+import StudentList from './pages/StudentList';
 
 function App() {   
   return (
@@ -27,6 +30,7 @@ function App() {
         <Route path="/jobpack/:rtoNumber/:courseId" element={<JobPackView />} />
         <Route path="/assessment/knowledge/:rtoNumber/:courseId" element={<KnowledgeAssessmentView />} />
         <Route path="/knowledge-answer/:rtoNumber/:courseId" element={<KnowledgeAnswerGuideView />} />
+        <Route path="/mapping-document/:rtoNumber/:courseId" element={<MappingDocumentPage />} />
         
         <Route
           path="/dashboard"
@@ -63,6 +67,8 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="/dashboard/teacher-list" element={<TeacherList />} />
+        <Route path="/dashboard/student-list" element={<StudentList />} />
         <Route
           path="/dashboard/rto/student"
           element={

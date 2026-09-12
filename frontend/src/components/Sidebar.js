@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import {
-  LayoutDashboard, BookOpen, Car, HelpCircle, FileText, Settings,
-  LogOut, ChevronDown, ChevronRight, X, ShoppingBag, CheckSquare, Users,
+  LayoutDashboard, BookOpen, Car,FileText,
+  LogOut, ChevronDown, ChevronRight, X, ShoppingBag, Users,
 } from 'lucide-react';
 import '../styles/dashboard.css';
 
@@ -21,7 +21,7 @@ export default function Sidebar({ isOpen, onClose, collapsed }) {
 
   // Dynamically derive rtoNumber and courseId from stored user data or fallback to defaults
   const rtoNumber = storedUser.rtoNumber || 'RTO-40291';
-  const courseId = (storedUser.courses && storedUser.courses[0]) || '6a9e5391cdea07f6d4b396d4';
+  const courseId = (storedUser.courses && storedUser.courses[0]) || '6aa396feaa9a5eeb9dba9ea4';
   const assessmentPath = `/assessment/knowledge/${rtoNumber}/${courseId}`;
 
   const handleLogout = () => {
@@ -84,7 +84,7 @@ export default function Sidebar({ isOpen, onClose, collapsed }) {
                 </div>
               )}
 
-              <NavLink to="/dashboard/questions" className={linkClass} onClick={onClose} title="Questions">
+              {/* <NavLink to="/dashboard/questions" className={linkClass} onClick={onClose} title="Questions">
                 <HelpCircle size={18} />
                 <span className="sidebar-label">Questions</span>
               </NavLink>
@@ -97,7 +97,7 @@ export default function Sidebar({ isOpen, onClose, collapsed }) {
               <NavLink to="/dashboard/settings" className={linkClass} onClick={onClose} title="Settings">
                 <Settings size={18} />
                 <span className="sidebar-label">Settings</span>
-              </NavLink>
+              </NavLink> */}
             </>
           ) : userRole === 'student' ? (
             // --- STUDENT MENU ---
@@ -107,7 +107,7 @@ export default function Sidebar({ isOpen, onClose, collapsed }) {
                 <span className="sidebar-label">Assessment</span>
               </NavLink>
 
-              <NavLink to="/dashboard/submissions" className={linkClass} onClick={onClose} title="My Submissions">
+              {/* <NavLink to="/dashboard/submissions" className={linkClass} onClick={onClose} title="My Submissions">
                 <CheckSquare size={18} />
                 <span className="sidebar-label">My Submissions</span>
               </NavLink>
@@ -115,20 +115,35 @@ export default function Sidebar({ isOpen, onClose, collapsed }) {
               <NavLink to="/dashboard/settings" className={linkClass} onClick={onClose} title="Settings">
                 <Settings size={18} />
                 <span className="sidebar-label">Settings</span>
-              </NavLink>
+              </NavLink> */}
             </>
           ) : userRole === 'teacher' ? (
             // --- TEACHER MENU (Including Student management view) ---
             <>
-              <NavLink to="/dashboard/rto/student" className={linkClass} onClick={onClose} title="Student">
+              {/* <NavLink to="/dashboard/rto/student" className={linkClass} onClick={onClose} title="Student">
                 <Users size={18} />
                 <span className="sidebar-label">Student</span>
+              </NavLink> */}
+                <NavLink to="/dashboard/student-list" className={linkClass} onClick={onClose} title="My Student">
+                <Users size={18} />
+                <span className="sidebar-label">Student List</span>
               </NavLink>
 
-              <NavLink to="/dashboard/settings" className={linkClass} onClick={onClose} title="Settings">
+              {/* <NavLink to="/dashboard/teacher-list" className={linkClass} onClick={onClose} title="Teachers">
+  <Users size={18} />
+  <span className="sidebar-label">Teachers</span>
+</NavLink> */}
+
+               <NavLink to={assessmentPath} className={linkClass} onClick={onClose} title="Assessment">
+                <BookOpen size={18} />
+                <span className="sidebar-label">Assessment</span>
+              </NavLink>
+
+
+              {/* <NavLink to="/dashboard/settings" className={linkClass} onClick={onClose} title="Settings">
                 <Settings size={18} />
                 <span className="sidebar-label">Settings</span>
-              </NavLink>
+              </NavLink> */}
             </>
           ) : (
             // --- RTO MENU (Buyed Course Details & Specific Views) ---
@@ -143,10 +158,20 @@ export default function Sidebar({ isOpen, onClose, collapsed }) {
                 <span className="sidebar-label">RTO Profile</span>
               </NavLink>
 
-              <NavLink to="/dashboard/settings" className={linkClass} onClick={onClose} title="Settings">
+              <NavLink to="/dashboard/rto/student" className={linkClass} onClick={onClose} title="Student">
+                <Users size={18} />
+                <span className="sidebar-label">Student</span>
+              </NavLink>
+
+              <NavLink to="/dashboard/rto/teacher" className={linkClass} onClick={onClose} title="Teacher">
+                <Users size={18} />
+                <span className="sidebar-label">Teacher</span>
+              </NavLink>
+
+              {/* <NavLink to="/dashboard/settings" className={linkClass} onClick={onClose} title="Settings">
                 <Settings size={18} />
                 <span className="sidebar-label">Settings</span>
-              </NavLink>
+              </NavLink> */}
             </>
           )}
         </nav>

@@ -205,3 +205,42 @@
     display: table-header-group !important;
   }
 }
+.teacher-decision-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-approve {
+  padding: 10px 20px;
+  background: #059669;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.btn-approve:hover:not(:disabled) {
+  background: #047857;
+}
+
+.btn-reattempt {
+  padding: 10px 20px;
+  background: #dc2626;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.btn-reattempt:hover:not(:disabled) {
+  background: #b91c1c;
+}
+
+.btn-approve:disabled,
+.btn-reattempt:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

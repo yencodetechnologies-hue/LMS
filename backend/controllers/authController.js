@@ -95,8 +95,6 @@ exports.login = async (req, res) => {
           if (teacherMatch) {
             detectedRole = 'teacher';
             const hashedPassword = await bcrypt.hash('123456', 10);
-            // If User model schema enum throws on 'teacher', map fallback role to 'rto' or 'student' in DB, 
-            // but let userProfile output 'teacher'
             user = await User.create({
               name: teacherMatch.name,
               email: lowerEmail,
@@ -120,7 +118,7 @@ exports.login = async (req, res) => {
     // 4. Fetch the latest metadata from Order, StudentSubmission, or Teacher tables
     const orderData = await Order.findOne({ email: lowerEmail }).sort({ createdAt: -1 });
     const studentData = !orderData ? await StudentSubmission.findOne({ 'student.studentEmail': lowerEmail }).sort({ createdAt: -1 }) : null;
-    const teacherData = (!orderData && !studentData) ? await Teacher.findOne({ email: lowerEmail }).sort({ createdAt: -1 }) : null;
+    const teacherData = (!orderData && !studentData) ? await Teacher.findOne({ email: lowerEmail }) : null;
 
     // Determine final role for token/profile response
     let finalRole = user.role;
@@ -132,19 +130,24 @@ exports.login = async (req, res) => {
       finalRole = 'teacher';
     }
 
-    // 5. Construct user profile response incorporating source-specific data
+    const token = jwt.sign(
+      { id: user._id, email: user.email, role: finalRole },
+      process.env.JWT_SECRET || 'default_jwt_secret_key_2026',
+      { expiresIn: '8h' }
+    );
+
+    // 5. Construct user profile response incorporating source-specific data, submission _id, and actual studentId string
     const userProfile = {
-      id: user._id,
+      id: teacherData ? teacherData._id : (studentData ? studentData._id : user._id),
+      studentId: studentData ? studentData.student.studentId : undefined,
       name: orderData ? orderData.name : (studentData ? studentData.student.studentName : (teacherData ? teacherData.name : user.name)),
       email: user.email,
       role: finalRole,
       rtoNumber: orderData ? orderData.rtoNumber : (studentData ? studentData.rtoId : (teacherData ? teacherData.rtoNumber : (user.rtoNumber || ''))),
-      instituteName: orderData ? orderData.instituteName : (user.instituteName || ''),
+      instituteName: orderData ? orderData.instituteName : (teacherData ? (teacherData.instituteName || '') : (user.instituteName || '')),
       payStatus: orderData ? orderData.payStatus : 1,
-      courses: orderData ? orderData.courses : (studentData ? [studentData.courseId] : [])
+      courses: orderData ? orderData.courses : (studentData ? [studentData.courseId] : (teacherData ? (teacherData.courses || []) : []))
     };
-
-    const token = generateToken(userProfile);
 
     return res.status(200).json({
       success: true,
@@ -157,23 +160,28 @@ exports.login = async (req, res) => {
     return res.status(500).json({ success: false, message: 'Internal server error during login' });
   }
 };
+
 exports.getMe = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
     if (!user) return res.status(404).json({ success: false, message: 'User not found' });
-    
-    const orderData = await Order.findOne({ email: user.email.toLowerCase() }).sort({ createdAt: -1 });
-    const studentData = !orderData ? await StudentSubmission.findOne({ 'student.studentEmail': user.email.toLowerCase() }).sort({ createdAt: -1 }) : null;
-    
+
+    const lowerEmail = user.email.toLowerCase();
+
+    const orderData = await Order.findOne({ email: lowerEmail }).sort({ createdAt: -1 });
+    const studentData = !orderData ? await StudentSubmission.findOne({ 'student.studentEmail': lowerEmail }).sort({ createdAt: -1 }) : null;
+    const teacherData = (!orderData && !studentData) ? await Teacher.findOne({ email: lowerEmail }) : null;
+
     const userProfile = {
-      id: user._id,
-      name: orderData ? orderData.name : (studentData ? studentData.student.studentName : user.name),
+      id: teacherData ? teacherData._id : (studentData ? studentData._id : user._id),
+      studentId: studentData ? studentData.student.studentId : undefined,
+      name: orderData ? orderData.name : (studentData ? studentData.student.studentName : (teacherData ? teacherData.name : user.name)),
       email: user.email,
-      role: orderData ? orderData.role.toLowerCase() : (studentData ? 'student' : (user.role || 'student')),
-      rtoNumber: orderData ? orderData.rtoNumber : (studentData ? studentData.rtoId : (user.rtoNumber || '')),
-      instituteName: orderData ? orderData.instituteName : (user.instituteName || ''),
+      role: orderData ? orderData.role.toLowerCase() : (studentData ? 'student' : (teacherData ? 'teacher' : (user.role || 'student'))),
+      rtoNumber: orderData ? orderData.rtoNumber : (studentData ? studentData.rtoId : (teacherData ? teacherData.rtoNumber : (user.rtoNumber || ''))),
+      instituteName: orderData ? orderData.instituteName : (teacherData ? (teacherData.instituteName || '') : (user.instituteName || '')),
       payStatus: orderData ? orderData.payStatus : 1,
-      courses: orderData ? orderData.courses : (studentData ? [studentData.courseId] : [])
+      courses: orderData ? orderData.courses : (studentData ? [studentData.courseId] : (teacherData ? (teacherData.courses || []) : []))
     };
 
     return res.status(200).json({ success: true, user: userProfile });

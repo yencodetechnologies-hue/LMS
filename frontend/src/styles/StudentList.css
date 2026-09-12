@@ -1,0 +1,164 @@
+.student-list-container {
+  padding: 1.5rem;
+}
+
+.student-list-message {
+  padding: 1.5rem;
+  font-size: 0.95rem;
+  color: #4b5563;
+}
+
+.student-list-error {
+  color: #dc2626;
+}
+
+.student-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.student-list-title {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+}
+
+.student-list-search {
+  width: 280px;
+  max-width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.student-list-search:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+.student-list-empty {
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+.student-list-table-wrapper {
+  overflow-x: auto;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.student-list-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.student-list-table thead {
+  background-color: #f9fafb;
+}
+
+.student-list-table th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  color: #374151;
+  border-bottom: 1px solid #e5e7eb;
+  white-space: nowrap;
+}
+
+.student-list-table td {
+  padding: 0.75rem 1rem;
+  color: #1f2937;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.student-list-table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+.student-list-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.status-0 {
+  background-color: #f3f4f6;
+  color: #6b7280;
+}
+
+.status-1 {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.status-2 {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.status-3 {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.student-list-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.pagination-info {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.pagination-controls {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.pagination-btn {
+  padding: 0.4rem 0.75rem;
+  border: 1px solid #d1d5db;
+  background-color: #fff;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  color: #374151;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background-color: #f3f4f6;
+}
+
+.pagination-btn.active {
+  background-color: #2563eb;
+  border-color: #2563eb;
+  color: #fff;
+}
+
+.pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

@@ -1,4 +1,3 @@
-// Backend: models/StudentSubmission.js
 const mongoose = require('mongoose');
 
 const studentSubmissionSchema = new mongoose.Schema(
@@ -20,9 +19,35 @@ const studentSubmissionSchema = new mongoose.Schema(
         verdict: { type: String, default: 'Pending Review' }
       }
     ],
+    teacherFeedback: [
+      {
+        assessorIndex: Number,
+        label: {
+          type: String,
+          enum: ['Assessor result', 'Feedback', 'Overall outcome']
+        },
+        value: mongoose.Schema.Types.Mixed
+      }
+    ],
+    // The teacher assigned to review this specific submission. Kept as a
+    // ref + denormalized name/email (rather than relying on `reviewedBy`,
+    // which only fills in once feedback is actually saved) so the RTO
+    // admin can assign before any review has happened, and so the
+    // student-management table can show "Assigned to" without an extra
+    // populate on every row.
+    assignedTeacher: {
+      teacherId: { type: mongoose.Schema.Types.ObjectId, ref: 'Teacher', default: null },
+      teacherName: { type: String, trim: true, default: '' },
+      teacherEmail: { type: String, trim: true, default: '' },
+      assignedAt: { type: Date }
+    },
     submittedAt: { type: Date, default: Date.now },
-    status: { type: Number, enum: [0, 1, 2, 3], default: 0 }, // 0 = pending, 1 = approved, 2 = reattempt
-reviewedAt: { type: Date }
+    status: { type: Number, enum: [0, 1, 2, 3], default: 0 },
+    reviewedAt: { type: Date },
+    reviewedBy: {
+      teacherId: { type: String, trim: true },
+      teacherName: { type: String, trim: true }
+    }
   },
   { timestamps: true }
 );
