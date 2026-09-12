@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookOpen, Users, GraduationCap, HelpCircle, ArrowUpRight } from 'lucide-react';
+import { BookOpen, Users, GraduationCap, HelpCircle} from 'lucide-react';
 import DashboardLayout from '../components/DashboardLayout';
 import '../styles/dashboard.css';
 
@@ -10,12 +10,12 @@ const stats = [
   { label: 'Pending Questions', value: '0', change: '0 unresolved', icon: HelpCircle, accent: 'coral' },
 ];
 
-const recentCourses = [
-  { name: 'Two-Wheeler Basics', teacher: 'R. Kumar', students: 142, status: 'Active' },
-  { name: 'Heavy Vehicle License Prep', teacher: 'S. Iyer', students: 88, status: 'Active' },
-  { name: 'Road Safety & Signs', teacher: 'A. Nair', students: 210, status: 'Draft' },
-  { name: 'Defensive Driving', teacher: 'M. Raj', students: 64, status: 'Active' },
-];
+// const recentCourses = [
+//   { name: 'Two-Wheeler Basics', teacher: 'R. Kumar', students: 142, status: 'Active' },
+//   { name: 'Heavy Vehicle License Prep', teacher: 'S. Iyer', students: 88, status: 'Active' },
+//   { name: 'Road Safety & Signs', teacher: 'A. Nair', students: 210, status: 'Draft' },
+//   { name: 'Defensive Driving', teacher: 'M. Raj', students: 64, status: 'Active' },
+// ];
 
 export default function Dashboard() {
   const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
